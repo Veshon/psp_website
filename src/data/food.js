@@ -1,7 +1,7 @@
 const foodMenu = {
   "id": "food",
   "title": "Our Food Menu",
-  "description": "Browse our current menu, with prices and ingredient descriptions taken from the restaurant's supplied menu.",
+  "description": "Browse our current menu, with prices and ingredient descriptions.",
   "hero": {
     "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=75",
     "eyebrow": "A Palace of Timeless Taste",

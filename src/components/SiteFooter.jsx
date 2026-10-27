@@ -24,7 +24,7 @@ export default function SiteFooter({ activePage }) {
         <div>
           <p className="mb-3 text-[9px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">Visit or reserve</p>
           <address className="not-italic text-xs leading-6 text-palazzo-cream/80">
-            <a className="inline-flex items-center gap-1.5 transition-colors hover:text-palazzo-gold-light" href="https://maps.google.com/?q=67+Triq+il-Kbira,+Rabat,+Malta" target="_blank" rel="noreferrer">67 Triq il-Kbira, Rabat, Malta <ExternalLinkIcon /></a>
+            <a className="inline-flex items-center gap-1.5 transition-colors hover:text-palazzo-gold-light" href="https://www.google.com/maps/place/Brasserie+Palazzo+San+Paolo/@35.8823704,14.3985345,17z/data=!3m1!4b1!4m6!3m5!1s0x130e514e3c890873:0x5069a59ebff527a0!8m2!3d35.8823704!4d14.4011094!16s%2Fg%2F11y__d07x1?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer">67 Triq il-Kbira, Rabat, Malta <ExternalLinkIcon /></a>
           </address>
           <a className="mt-1 inline-block text-sm font-semibold text-palazzo-gold-light transition-colors hover:text-white" href="tel:+35677055218">+356 7705 5218</a>
           <p className="mt-1 text-[10px] text-palazzo-cream/55">Call for reservations</p>
@@ -54,7 +54,7 @@ export default function SiteFooter({ activePage }) {
             <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-palazzo-gold/55 px-3.5 text-xs text-palazzo-cream transition-colors hover:bg-palazzo-gold hover:text-palazzo-burgundy" href="https://wa.me/35677055218" target="_blank" rel="noreferrer" aria-label="Message Palazzo San Paolo Brasserie on WhatsApp">
               <WhatsAppIcon className="h-4 w-4" /> WhatsApp
             </a>
-            <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-palazzo-gold/55 px-3.5 text-xs text-palazzo-cream transition-colors hover:bg-palazzo-gold hover:text-palazzo-burgundy" href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Open Instagram">
+            <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-palazzo-gold/55 px-3.5 text-xs text-palazzo-cream transition-colors hover:bg-palazzo-gold hover:text-palazzo-burgundy" href="https://www.instagram.com/brasserie_palazzo_san_paolo/" target="_blank" rel="noreferrer" aria-label="Open Instagram">
               <InstagramIcon className="h-4 w-4" /> Instagram
             </a>
           </div>

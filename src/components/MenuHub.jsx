@@ -79,7 +79,7 @@ export default function MenuHub() {
 
         <footer className="mt-8 rounded-2xl border border-[#d6b56d]/45 bg-black/15 px-5 py-6 text-center shadow-[0_12px_32px_rgba(0,0,0,.16)] sm:mt-10 sm:px-8">
           <p className="font-serif text-xl text-[#f0d38f]">Come visit us</p>
-          <a className="mt-2 inline-flex items-center gap-1.5 text-sm text-white/85 transition-colors hover:text-[#f0d38f]" href="https://maps.google.com/?q=67+Triq+il-Kbira,+Rabat,+Malta" target="_blank" rel="noreferrer">67 Triq il-Kbira · Rabat, Malta <ExternalLinkIcon /></a>
+          <a className="mt-2 inline-flex items-center gap-1.5 text-sm text-white/85 transition-colors hover:text-[#f0d38f]" href="https://www.google.com/maps/place/Brasserie+Palazzo+San+Paolo/@35.8823704,14.3985345,17z/data=!3m1!4b1!4m6!3m5!1s0x130e514e3c890873:0x5069a59ebff527a0!8m2!3d35.8823704!4d14.4011094!16s%2Fg%2F11y__d07x1?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer">67 Triq il-Kbira · Rabat, Malta <ExternalLinkIcon /></a>
           <p className="mt-1 text-xs text-white/60">For reservations</p>
           <a className="mt-1 inline-block text-lg font-semibold tracking-wide text-[#f0d38f] hover:text-white" href="tel:+35677055218">+356 7705 5218</a>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -89,7 +89,7 @@ export default function MenuHub() {
             <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d6b56d]/60 px-4 text-xs text-white transition-colors hover:bg-[#d6b56d] hover:text-[#351017]" href="https://wa.me/35677055218" target="_blank" rel="noreferrer">
               <WhatsAppIcon className="h-4 w-4" /> WhatsApp
             </a>
-            <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d6b56d]/60 px-4 text-xs text-white transition-colors hover:bg-[#d6b56d] hover:text-[#351017]" href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Open Instagram">
+            <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d6b56d]/60 px-4 text-xs text-white transition-colors hover:bg-[#d6b56d] hover:text-[#351017]" href="https://www.instagram.com/brasserie_palazzo_san_paolo/" target="_blank" rel="noreferrer" aria-label="Open Instagram">
               <InstagramIcon className="h-4 w-4" /> Instagram
             </a>
           </div>

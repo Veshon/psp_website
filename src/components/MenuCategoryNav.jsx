@@ -1,7 +1,7 @@
 export default function MenuCategoryNav({ sections }) {
   return (
-    <nav className="flex justify-center menu-category-nav sticky top-0 z-10 mb-6 border-y border-palazzo-gold/25 bg-[#351017]/95 py-2 backdrop-blur sm:mb-8 sm:py-3" aria-label="Jump to a menu section">
-      <div className="flex min-w-0 gap-2 overflow-x-auto sm:gap-3">
+    <nav className="menu-category-nav sticky top-0 z-10 mb-6 border-y border-palazzo-gold/25 bg-[#351017]/95 py-2 backdrop-blur sm:mb-8 sm:py-3" aria-label="Jump to a menu section">
+      <div className="mx-auto flex min-w-0 justify-start gap-2 overflow-x-auto px-3 sm:justify-center sm:gap-3">
         {sections.map((section) => (
           <a
             key={section.id}

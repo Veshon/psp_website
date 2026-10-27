@@ -80,14 +80,6 @@ body {
   opacity: .14;
 }
 
-.menu-content-panel {
-  position: relative;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(121, 35, 47, .44), transparent 58%),
-    linear-gradient(155deg, rgba(66, 17, 26, .97), rgba(42, 8, 14, .98));
-  backdrop-filter: blur(8px);
-}
-
 a { -webkit-tap-highlight-color: transparent; }
 
 .menu-category-nav { scrollbar-width: none; }

@@ -42,7 +42,7 @@ export default function MenuHub() {
       <div className="relative mx-auto max-w-4xl">
         <header className="relative isolate mb-8 overflow-hidden rounded-[24px] border border-[#d6b56d]/45 px-4 py-7 text-center shadow-[0_16px_42px_rgba(0,0,0,.24)] sm:mb-11 sm:px-8 sm:py-9">
           <img className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_56%]" src="assets/palazzo-entrance.jpg" alt="" fetchPriority="high" />
-          <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(28,5,9,.48)_0%,rgba(39,7,13,.78)_58%,#26080e_100%)]" aria-hidden="true" />
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(28,5,9,.48)_0%,rgba(39,7,13,.78)_100%,#26080e_100%)]" aria-hidden="true" />
           <div className="relative z-10">
           <a href="food.html" className="mx-auto mb-5 grid h-[102px] w-[102px] p-4 sm:h-[158px] sm:w-[158px] sm:p-[18px]" aria-label="Palazzo San Paolo Brasserie menu">
             <img src="assets/palazzo-logo.png" alt="Palazzo San Paolo Brasserie crest" className="h-full w-full object-contain" />

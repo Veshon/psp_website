@@ -29,6 +29,65 @@ body {
 
 ::selection { background: #c69b52; color: #2b1d18; }
 
+.menu-hub {
+  background:
+    radial-gradient(ellipse at 50% -12%, rgba(137, 31, 43, .72), transparent 48%),
+    radial-gradient(ellipse at 100% 56%, rgba(111, 26, 37, .24), transparent 42%),
+    linear-gradient(155deg, #26080e 0%, #4b1118 47%, #21070c 100%);
+}
+
+.menu-hub-glow {
+  background: radial-gradient(ellipse at 50% 35%, transparent 0%, rgba(13, 3, 5, .14) 75%);
+}
+
+.menu-hub-crest {
+  background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(0,0,0,.2));
+  box-shadow: 0 0 0 5px rgba(198,155,82,.08), 0 12px 34px rgba(0,0,0,.28);
+}
+
+.menu-page-background {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #2a080e;
+}
+
+.menu-page-background::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(ellipse at 7% 11%, rgba(198, 155, 82, .4) 0, rgba(198, 155, 82, .18) 8%, transparent 22%),
+    radial-gradient(ellipse at 96% 24%, rgba(123, 34, 47, .78) 0, rgba(123, 34, 47, .34) 13%, transparent 30%),
+    radial-gradient(ellipse at 1% 56%, rgba(177, 119, 51, .28) 0, rgba(177, 119, 51, .12) 8%, transparent 24%),
+    radial-gradient(ellipse at 99% 76%, rgba(198, 155, 82, .24) 0, rgba(198, 155, 82, .1) 9%, transparent 25%),
+    radial-gradient(ellipse at 42% 100%, rgba(107, 24, 37, .75) 0, rgba(107, 24, 37, .25) 16%, transparent 35%);
+  filter: blur(42px);
+  opacity: .88;
+}
+
+.menu-page-background::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background-image: radial-gradient(rgba(229, 202, 141, .28) .7px, transparent .7px);
+  background-size: 23px 23px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.3), transparent 28rem, transparent calc(100% - 28rem), rgba(0,0,0,.2));
+  opacity: .14;
+}
+
+.menu-content-panel {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(121, 35, 47, .44), transparent 58%),
+    linear-gradient(155deg, rgba(66, 17, 26, .97), rgba(42, 8, 14, .98));
+  backdrop-filter: blur(8px);
+}
+
 a { -webkit-tap-highlight-color: transparent; }
 
 .menu-category-nav { scrollbar-width: none; }

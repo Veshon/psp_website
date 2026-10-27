@@ -1,6 +1,6 @@
 export default function MenuItemCard({ item }) {
   return (
-    <article className="flex min-w-0 flex-row border-b border-palazzo-line/75 bg-transparent md:flex-col md:border md:bg-white">
+    <article className="flex min-w-0 flex-row overflow-hidden rounded-xl border border-palazzo-gold/30 bg-palazzo-paper text-palazzo-ink shadow-[0_6px_18px_rgba(0,0,0,.18)] md:flex-col md:border-palazzo-gold/40">
       {item.image && (
         <div className="relative min-h-[96px] w-[78px] shrink-0 overflow-hidden md:min-h-0 md:w-full">
           <img

@@ -14,6 +14,7 @@ export default defineConfig({
         food: resolve(import.meta.dirname, "food.html"),
         drinks: resolve(import.meta.dirname, "drinks.html"),
         iceCream: resolve(import.meta.dirname, "ice-cream-and-shakes.html"),
+        menus: resolve(import.meta.dirname, "menus.html"),
       },
     },
   },

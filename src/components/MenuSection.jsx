@@ -4,7 +4,7 @@ import MenuItemRow from "./MenuItemRow.jsx";
 export default function MenuSection({ section }) {
   return (
     <section className=" scroll-mt-24 pb-5 pt-5 sm:pb-7 sm:pt-7" id={section.id}>
-      <h2 className="mb-4 font-serif text-[1.4rem] leading-tight tracking-[-.02em] text-palazzo-burgundy sm:mb-5 sm:text-[1.8rem]">
+      <h2 className="mb-4 border-b border-palazzo-gold/35 pb-2 font-serif text-[1.4rem] leading-tight tracking-[-.02em] text-palazzo-gold-light sm:mb-5 sm:text-[1.8rem]">
         {section.title}
       </h2>
 
@@ -19,7 +19,7 @@ export default function MenuSection({ section }) {
       )}
 
       {section.note && (
-        <p className={`mt-5 px-1 py-2 text-xs leading-5 ${section.note.toLowerCase().includes("printed menu") ? "text-[#6b5547]" : "text-stone-500"}`}>
+        <p className="mt-5 px-1 py-2 text-xs leading-5 text-palazzo-cream/65">
           {section.note}
         </p>
       )}

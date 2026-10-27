@@ -1,4 +1,5 @@
 const pages = [
+  ["hub", "Home", "menus.html"],
   ["food", "Food Menu", "food.html"],
   ["drinks", "Drinks Menu", "drinks.html"],
   ["iceCream", "Ice-Cream & Shakes", "ice-cream-and-shakes.html"],
@@ -22,11 +23,11 @@ export default function SiteHeader({ activePage }) {
             <span className="mt-1 block text-[8px] tracking-[.18em] text-palazzo-gold-light sm:mt-1.5 sm:text-[9px] sm:tracking-[.24em]">BRASSERIE · RABAT, MALTA</span>
           </span>
         </a>
-        <nav className="flex w-full max-w-[430px] flex-nowrap justify-center gap-1 md:w-auto md:gap-5" aria-label="Main navigation">
+        <nav className="flex w-full max-w-[580px] flex-nowrap justify-center gap-1 md:w-auto md:gap-4" aria-label="Main navigation">
           {pages.map(([id, label, href]) => (
             <a
               key={id}
-              className={`flex-1 whitespace-nowrap border-b py-2.5 text-center text-[9px] uppercase tracking-[.08em] transition sm:px-1 sm:text-[10px] sm:tracking-[.12em] md:flex-none ${
+              className={`flex-1 whitespace-nowrap border-b py-2.5 text-center text-[8px] uppercase tracking-[.04em] transition sm:px-1 sm:text-[10px] sm:tracking-[.1em] md:flex-none ${
                 id === activePage
                   ? "border-palazzo-gold text-palazzo-gold-light"
                   : "border-transparent text-palazzo-cream/75 hover:border-palazzo-gold/50 hover:text-white"

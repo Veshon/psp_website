@@ -40,7 +40,10 @@ export default function MenuHub() {
     <main className="menu-hub relative min-h-screen overflow-hidden px-4 pb-12 pt-8 text-white sm:px-6 sm:pb-16 sm:pt-12">
       <div className="menu-hub-glow pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-4xl">
-        <header className="mb-8 text-center sm:mb-11">
+        <header className="relative isolate mb-8 overflow-hidden rounded-[24px] border border-[#d6b56d]/45 px-4 py-7 text-center shadow-[0_16px_42px_rgba(0,0,0,.24)] sm:mb-11 sm:px-8 sm:py-9">
+          <img className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_56%]" src="assets/palazzo-entrance.jpg" alt="" fetchPriority="high" />
+          <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(28,5,9,.48)_0%,rgba(39,7,13,.78)_58%,#26080e_100%)]" aria-hidden="true" />
+          <div className="relative z-10">
           <a href="food.html" className="mx-auto mb-5 grid h-[102px] w-[102px] p-4 sm:h-[158px] sm:w-[158px] sm:p-[18px]" aria-label="Palazzo San Paolo Brasserie menu">
             <img src="assets/palazzo-logo.png" alt="Palazzo San Paolo Brasserie crest" className="h-full w-full object-contain" />
           </a>
@@ -49,6 +52,7 @@ export default function MenuHub() {
           <p className="mt-1.5 text-[10px] uppercase tracking-[.3em] text-white/75 sm:text-xs">Brasserie</p>
           <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-white/80 sm:text-base">A palace of timeless taste.<br className="sm:hidden" /> Find something to savour.</p>
           <div className="mx-auto mt-6 flex items-center justify-center gap-3" aria-hidden="true"><span className="h-px w-12 bg-[#c69b52]/65" /><span className="h-1.5 w-1.5 rotate-45 border border-[#e5ca8d]" /><span className="h-px w-12 bg-[#c69b52]/65" /></div>
+          </div>
         </header>
 
         <section aria-labelledby="menu-links-title">

@@ -12,7 +12,7 @@ export default function SiteHeader({ activePage }) {
           <span className="relative grid h-11 w-10 shrink-0 place-items-center sm:h-[58px] sm:w-[52px]">
             <img
               className="absolute inset-0 h-full w-full object-contain p-0.5"
-              src="./dist/assets/IMG_2095 Background Removed.png"
+              src="./src/IMG_2095 Background Removed.png"
               alt="Palazzo San Paolo Brasserie crest"
               onError={(event) => event.currentTarget.remove()}
             />

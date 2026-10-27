@@ -29,7 +29,7 @@ const links = [
     title: "Milkshakes",
     subtitle: "Thick, creamy & made for a treat",
     href: "ice-cream-and-shakes.html#milkshakes",
-    image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1000&q=85",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9rSU-Zn9clIQa3I2RrFGbw4zetxtXWXM8cx9IATTy-Q&s=10",
     alt: "A creamy milkshake",
     icon: "",
   }

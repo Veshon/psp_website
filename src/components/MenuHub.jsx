@@ -1,3 +1,5 @@
+import { ExternalLinkIcon, FacebookIcon, InstagramIcon, WhatsAppIcon } from "./BrandIcons.jsx";
+
 const links = [
   {
     title: "Food",
@@ -5,7 +7,7 @@ const links = [
     href: "food.html",
     image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=85",
     alt: "Freshly prepared restaurant meal",
-    icon: "🍽️",
+    icon: "",
   },
   {
     title: "Drinks",
@@ -13,7 +15,7 @@ const links = [
     href: "drinks.html",
     image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1000&q=85",
     alt: "A colourful cocktail",
-    icon: "🍸",
+    icon: "",
   },
   {
     title: "Ice Cream",
@@ -21,7 +23,7 @@ const links = [
     href: "ice-cream-and-shakes.html",
     image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1000&q=85",
     alt: "Scoops of ice cream",
-    icon: "🍨",
+    icon: "",
   },
   {
     title: "Milkshakes",
@@ -29,7 +31,7 @@ const links = [
     href: "ice-cream-and-shakes.html#milkshakes",
     image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1000&q=85",
     alt: "A creamy milkshake",
-    icon: "🥤",
+    icon: "",
   }
 ];
 
@@ -39,7 +41,7 @@ export default function MenuHub() {
       <div className="menu-hub-glow pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-4xl">
         <header className="mb-8 text-center sm:mb-11">
-          <a href="food.html" className="menu-hub-crest mx-auto mb-5 grid h-[76px] w-[76px] place-items-center rounded-full border border-[#d6b56d]/60 p-3.5" aria-label="Palazzo San Paolo Brasserie menu">
+          <a href="food.html" className="mx-auto mb-5 grid h-[102px] w-[102px] p-4 sm:h-[158px] sm:w-[158px] sm:p-[18px]" aria-label="Palazzo San Paolo Brasserie menu">
             <img src="assets/palazzo-logo.png" alt="Palazzo San Paolo Brasserie crest" className="h-full w-full object-contain" />
           </a>
           <p className="text-[10px] font-semibold uppercase tracking-[.32em] text-[#e5ca8d]">Rabat · Malta</p>
@@ -77,15 +79,18 @@ export default function MenuHub() {
 
         <footer className="mt-8 rounded-2xl border border-[#d6b56d]/45 bg-black/15 px-5 py-6 text-center shadow-[0_12px_32px_rgba(0,0,0,.16)] sm:mt-10 sm:px-8">
           <p className="font-serif text-xl text-[#f0d38f]">Come visit us</p>
-          <a className="mt-2 inline-block text-sm text-white/85 transition-colors hover:text-[#f0d38f]" href="https://maps.google.com/?q=67+Triq+il-Kbira,+Rabat,+Malta" target="_blank" rel="noreferrer">67 Triq il-Kbira · Rabat, Malta ↗</a>
+          <a className="mt-2 inline-flex items-center gap-1.5 text-sm text-white/85 transition-colors hover:text-[#f0d38f]" href="https://maps.google.com/?q=67+Triq+il-Kbira,+Rabat,+Malta" target="_blank" rel="noreferrer">67 Triq il-Kbira · Rabat, Malta <ExternalLinkIcon /></a>
           <p className="mt-1 text-xs text-white/60">For reservations</p>
           <a className="mt-1 inline-block text-lg font-semibold tracking-wide text-[#f0d38f] hover:text-white" href="tel:+35677055218">+356 7705 5218</a>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d6b56d]/60 px-4 text-xs text-white transition-colors hover:bg-[#d6b56d] hover:text-[#351017]" href="https://www.facebook.com/profile.php?id=61581584915463" target="_blank" rel="noreferrer">
-              <span className="grid h-5 w-5 place-items-center rounded-full bg-white text-[13px] font-bold text-[#4b1118]" aria-hidden="true">f</span> Facebook
+              <FacebookIcon className="h-4 w-4" /> Facebook
             </a>
             <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d6b56d]/60 px-4 text-xs text-white transition-colors hover:bg-[#d6b56d] hover:text-[#351017]" href="https://wa.me/35677055218" target="_blank" rel="noreferrer">
-              <span aria-hidden="true">◉</span> WhatsApp
+              <WhatsAppIcon className="h-4 w-4" /> WhatsApp
+            </a>
+            <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#d6b56d]/60 px-4 text-xs text-white transition-colors hover:bg-[#d6b56d] hover:text-[#351017]" href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Open Instagram">
+              <InstagramIcon className="h-4 w-4" /> Instagram
             </a>
           </div>
           <p className="mt-5 text-[10px] leading-5 text-white/45">© {new Date().getFullYear()} Palazzo San Paolo Brasserie</p>

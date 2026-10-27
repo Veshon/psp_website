@@ -10,7 +10,7 @@ export default function SiteHeader({ activePage }) {
     <header id="top" className="relative z-20 border-b border-palazzo-gold/50 bg-palazzo-burgundy text-palazzo-cream">
       <div className="mx-auto flex max-w-[1320px] flex-col items-center justify-between gap-3 px-3 py-3 sm:px-7 sm:py-4 md:min-h-[88px] md:flex-row lg:px-10">
         <a className="flex items-center gap-3.5" href="food.html" aria-label="Palazzo San Paolo Brasserie home">
-          <span className="relative grid h-11 w-10 shrink-0 place-items-center sm:h-[58px] sm:w-[52px]">
+          <span className="relative grid h-[52px] w-[44px] shrink-0 place-items-center sm:h-[70px] sm:w-[60px]">
             <img
               className="absolute inset-0 h-full w-full object-contain p-0.5"
               src="assets/palazzo-logo.png"

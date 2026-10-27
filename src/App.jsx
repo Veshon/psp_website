@@ -49,7 +49,7 @@ export default function App() {
         <MenuCategoryNav sections={sections} />
 
         {sections.length ? (
-          sections.map((section) => <MenuSection key={section.id} section={section} menuId={menu.id} />)
+          sections.map((section) => <MenuSection key={section.id} section={section} />)
         ) : (
           <p className="rounded-xl border border-palazzo-gold/40 bg-black/10 px-5 py-12 text-center font-serif text-lg text-palazzo-cream/80">No menu items match “{query}”.</p>
         )}

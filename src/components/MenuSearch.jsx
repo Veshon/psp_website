@@ -5,7 +5,7 @@ export default function MenuSearch({ value, onChange }) {
       <span className="relative block">
         <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-xl text-palazzo-gold-light" aria-hidden="true">⌕</span>
         <input
-          className="min-h-11 w-full rounded-lg border border-palazzo-gold/40 bg-black/15 py-3 pl-11 pr-12 text-[13px] text-palazzo-cream outline-none transition placeholder:text-palazzo-cream/45 focus:border-palazzo-gold focus:bg-black/25 focus:ring-2 focus:ring-palazzo-gold/15 sm:py-3.5 sm:text-sm"
+          className="min-h-12 w-full rounded-xl border border-palazzo-gold/40 bg-black/15 py-3 pl-11 pr-12 text-[13px] text-palazzo-cream outline-none transition placeholder:text-palazzo-cream/45 focus:border-palazzo-gold focus:bg-black/25 focus:ring-2 focus:ring-palazzo-gold/15 sm:py-3.5 sm:text-sm"
           type="search"
           placeholder="Search items or ingredients…"
           value={value}

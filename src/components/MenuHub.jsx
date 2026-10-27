@@ -27,7 +27,7 @@ const links = [
     title: "Milkshakes",
     subtitle: "Thick, creamy & made for a treat",
     href: "ice-cream-and-shakes.html#milkshakes",
-    image: "https://images.unsplash.com/photo-1572490122747-699a7c0b9b94?auto=format&fit=crop&w=1000&q=85",
+    image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1000&q=85",
     alt: "A creamy milkshake",
     icon: "🥤",
   }
@@ -64,7 +64,11 @@ export default function MenuHub() {
                     <span className="block font-serif text-[1.3rem] leading-tight text-[#4b1118]">{link.title}</span>
                     <span className="mt-1 block text-xs leading-5 text-stone-600">{link.subtitle}</span>
                   </span>
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#c69b52]/55 text-lg text-[#8d632c] transition group-hover:border-[#4b1118] group-hover:bg-[#4b1118] group-hover:text-[#f0d38f]" aria-hidden="true">↗</span>
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#c69b52]/55 text-[#8d632c] transition group-hover:border-[#4b1118] group-hover:bg-[#4b1118] group-hover:text-[#f0d38f]" aria-hidden="true">
+                    <svg className="h-[17px] w-[17px]" viewBox="0 0 20 20" fill="none" focusable="false">
+                      <path d="M5.75 14.25 14.2 5.8M6.5 5.75h7.75v7.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                 </div>
               </a>
             ))}

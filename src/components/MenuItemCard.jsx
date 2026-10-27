@@ -1,10 +1,10 @@
-export default function MenuItemCard({ item, featured = false }) {
+export default function MenuItemCard({ item }) {
   return (
-    <article className={`flex min-w-0 overflow-hidden rounded-xl border border-palazzo-gold/30 bg-palazzo-paper text-palazzo-ink shadow-[0_6px_18px_rgba(0,0,0,.18)] transition-shadow hover:shadow-[0_10px_24px_rgba(0,0,0,.22)] md:border-palazzo-gold/40 ${featured ? "flex-row md:flex-col" : "flex-row md:flex-col"}`}>
+    <article className="group flex min-h-[104px] min-w-0 flex-row overflow-hidden rounded-xl border border-palazzo-gold/30 bg-palazzo-paper text-palazzo-ink shadow-[0_6px_18px_rgba(0,0,0,.18)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(0,0,0,.24)] md:min-h-0 md:flex-col md:border-palazzo-gold/40">
       {item.image && (
-        <div className={`relative shrink-0 overflow-hidden bg-palazzo-cream ${featured ? "h-[88px] w-[88px] md:aspect-[1.45] md:h-auto md:w-full" : "min-h-[96px] w-[78px] md:min-h-0 md:w-full"}`}>
+        <div className="relative aspect-square w-[88px] shrink-0 overflow-hidden bg-palazzo-cream md:aspect-[1.45] md:w-full">
           <img
-            className={`absolute inset-0 h-full w-full object-cover ${featured ? "" : "md:relative md:aspect-[1.45]"}`}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035]"
             src={item.image}
             alt={item.alt}
             loading="lazy"

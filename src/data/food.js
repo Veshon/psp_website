@@ -3,7 +3,7 @@ const foodMenu = {
   "title": "Our Food Menu",
   "description": "Browse our current menu, with prices and ingredient descriptions taken from the restaurant's supplied menu.",
   "hero": {
-    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1800&q=85",
+    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=75",
     "eyebrow": "A Palace of Timeless Taste",
     "title": "Good food.\nTimeless character.",
     "description": "Discover brasserie favourites, Maltese classics and something sweet to finish.",

@@ -3,7 +3,7 @@ const drinksMenu = {
   "title": "Drinks Menu",
   "description": "Our drinks list, with prices transcribed from the supplied menu. Some item names or prices in the photograph are not fully legible and are marked accordingly.",
   "hero": {
-    "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1800&q=85",
+    "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1400&q=75",
     "eyebrow": "From morning coffee to evening cocktails",
     "title": "Raise a glass\nto good taste.",
     "description": "Explore cocktails, spirits, beer, wine, coffee and refreshing favourites.",

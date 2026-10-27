@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-palazzo-burgundy: #4b1118;
+  --color-palazzo-cream: #f3ead9;
+  --color-palazzo-paper: #fbf8f0;
+  --color-palazzo-ink: #2b1d18;
+  --color-palazzo-gold: #c69b52;
+  --color-palazzo-gold-light: #e5ca8d;
+  --color-palazzo-gold-dark: #8d632c;
+  --color-palazzo-line: #ded0b8;
+  --font-serif: Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f3ecdf;
+  color: #2b1d18;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #c69b52; color: #2b1d18; }
+
+a { -webkit-tap-highlight-color: transparent; }
+
+.menu-category-nav { scrollbar-width: none; }
+.menu-category-nav::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}

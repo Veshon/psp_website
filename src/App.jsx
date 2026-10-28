@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SiteHeader from "./components/SiteHeader.jsx";
 import SiteFooter from "./components/SiteFooter.jsx";
 import MenuHero from "./components/MenuHero.jsx";
@@ -9,6 +9,7 @@ import MenuHub from "./components/MenuHub.jsx";
 import food from "./data/food.js";
 import drinks from "./data/drinks.js";
 import iceCream from "./data/iceCream.js";
+import OrderList from "./components/OrderList.jsx";
 
 const menus = { food, drinks, iceCream };
 
@@ -17,6 +18,21 @@ export default function App() {
   if (menuId === "hub") return <MenuHub />;
   const menu = menus[menuId] || food;
   const [query, setQuery] = useState("");
+  const [order, setOrder] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("palazzo-order") || "{}"); } catch { return {}; }
+  });
+  const [orderOpen, setOrderOpen] = useState(false);
+  useEffect(() => { localStorage.setItem("palazzo-order", JSON.stringify(order)); }, [order]);
+  const changeQuantity = (item, section, delta) => {
+    const id = `${menu.id}:${item.name}`;
+    setOrder((current) => {
+      const quantity = Math.max(0, (current[id]?.quantity || 0) + delta);
+      const next = { ...current };
+      if (!quantity) delete next[id];
+      else next[id] = { id, name: item.name, price: item.price, menu: menu.title.replace("Our ", ""), section: section.title, quantity };
+      return next;
+    });
+  };
   const needle = query.trim().toLowerCase();
   const sections = needle
     ? menu.sections
@@ -49,12 +65,17 @@ export default function App() {
         <MenuCategoryNav sections={sections} />
 
         {sections.length ? (
-          sections.map((section) => <MenuSection key={section.id} section={section} />)
+          sections.map((section) => <MenuSection key={section.id} section={section} quantityForItem={(item) => order[`${menu.id}:${item.name}`]?.quantity || 0} onQuantityChange={(item, delta) => changeQuantity(item, section, delta)} />)
         ) : (
           <p className="rounded-xl border border-palazzo-gold/40 bg-black/10 px-5 py-12 text-center font-serif text-lg text-palazzo-cream/80">No menu items match “{query}”.</p>
         )}
       </main>
       <SiteFooter activePage={menu.id} />
+      <OrderList order={order} open={orderOpen} onOpen={() => setOrderOpen(true)} onClose={() => setOrderOpen(false)} onChange={(id, delta) => setOrder((current) => {
+        const next = { ...current }; const quantity = Math.max(0, (next[id]?.quantity || 0) + delta);
+        if (!quantity) delete next[id]; else next[id] = { ...next[id], quantity };
+        return next;
+      })} onClear={() => setOrder({})} />
     </div>
   );
 }

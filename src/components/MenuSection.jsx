@@ -1,7 +1,7 @@
 import MenuItemCard from "./MenuItemCard.jsx";
 import MenuItemRow from "./MenuItemRow.jsx";
 
-export default function MenuSection({ section }) {
+export default function MenuSection({ section, quantityForItem = () => 0, onQuantityChange }) {
   return (
     <section className=" scroll-mt-24 pb-5 pt-5 sm:pb-7 sm:pt-7" id={section.id}>
       <h2 className="mb-4 flex items-center gap-3 font-serif text-[1.4rem] leading-tight tracking-[-.02em] text-palazzo-gold-light sm:mb-5 sm:text-[1.8rem]">
@@ -11,11 +11,11 @@ export default function MenuSection({ section }) {
 
       {section.layout === "cards" ? (
         <div className="grid grid-cols-1 gap-2.5 sm:gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-5">
-          {section.items.map((item) => <MenuItemCard item={item} key={item.name} />)}
+          {section.items.map((item) => <MenuItemCard item={item} key={item.name} quantity={quantityForItem(item)} onQuantityChange={onQuantityChange} />)}
         </div>
       ) : (
         <div className="divide-y divide-palazzo-line/70 sm:grid sm:grid-cols-2 sm:gap-x-9 sm:divide-y-0">
-          {section.items.map((item) => <MenuItemRow item={item} key={item.name} />)}
+          {section.items.map((item) => <MenuItemRow item={item} key={item.name} quantity={quantityForItem(item)} onQuantityChange={onQuantityChange} />)}
         </div>
       )}
 

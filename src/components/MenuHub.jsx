@@ -37,7 +37,7 @@ const links = [
 
 export default function MenuHub() {
   return (
-    <main className="menu-hub relative min-h-screen overflow-hidden px-4 pb-12 pt-8 text-white sm:px-6 sm:pb-16 sm:pt-12">
+    <main className="menu-hub relative min-h-[100svh] overflow-hidden px-4 pb-12 pt-8 text-white sm:min-h-screen sm:px-6 sm:pb-16 sm:pt-12">
       <div className="menu-hub-glow pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto max-w-4xl">
         <header className="relative isolate mb-8 overflow-hidden rounded-[24px] border border-[#d6b56d]/45 px-4 py-7 text-center shadow-[0_16px_42px_rgba(0,0,0,.24)] sm:mb-11 sm:px-8 sm:py-9">

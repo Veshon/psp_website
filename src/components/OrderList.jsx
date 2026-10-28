@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { WhatsAppIcon } from "./BrandIcons.jsx";
 
 function Quantity({ item, onChange }) {
   return <div className="inline-flex items-center gap-2 rounded-full border border-palazzo-gold/40 bg-white px-1"><button type="button" onClick={() => onChange(item.id, -1)} aria-label={`Remove one ${item.name}`} className="grid h-8 w-8 place-items-center rounded-full text-lg text-palazzo-burgundy hover:bg-palazzo-cream">−</button><span className="min-w-4 text-center text-sm font-semibold tabular-nums">{item.quantity}</span><button type="button" onClick={() => onChange(item.id, 1)} aria-label={`Add one ${item.name}`} className="grid h-8 w-8 place-items-center rounded-full text-lg text-palazzo-burgundy hover:bg-palazzo-cream">+</button></div>;
@@ -44,7 +45,7 @@ export default function OrderList({ order, open, onOpen, onClose, onChange, onCl
               <label className="block text-xs font-semibold text-palazzo-ink">Table number <span className="text-palazzo-burgundy">*</span>
                 <input required value={tableNumber} onChange={(event) => { setTableNumber(event.target.value); localStorage.setItem("palazzo-table-number", event.target.value); }} placeholder="Enter the number on your table" className="mt-1.5 min-h-11 w-full rounded-xl border border-palazzo-line bg-white px-3 text-sm font-normal outline-none transition placeholder:text-stone-400 focus:border-palazzo-gold-dark focus:ring-2 focus:ring-palazzo-gold/20" />
               </label>
-              <button type="submit" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#1f8f54] px-5 text-sm font-semibold text-white transition hover:bg-[#187343] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f8f54]"><span aria-hidden="true">↗</span> Send order on WhatsApp</button>
+              <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-xl bg-[#1f8f54] px-4 text-[13px] font-semibold text-white shadow-sm transition hover:bg-[#187343] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f8f54] sm:w-auto sm:rounded-full sm:px-5 sm:text-sm"><WhatsAppIcon className="h-5 w-5 shrink-0" /><span>Send order on WhatsApp</span></button>
             </form>
             <div className="mt-3 flex items-center justify-between gap-3"><button type="button" onClick={onClear} className="min-h-9 px-2 text-xs text-stone-500 underline underline-offset-2 hover:text-palazzo-burgundy">Clear list</button><p className="text-right text-[10px] leading-4 text-stone-500">WhatsApp opens with your order ready. Tap Send there to place it.</p></div>
           </footer>

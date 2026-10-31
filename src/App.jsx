@@ -9,9 +9,10 @@ import MenuHub from "./components/MenuHub.jsx";
 import food from "./data/food.js";
 import drinks from "./data/drinks.js";
 import iceCream from "./data/iceCream.js";
+import desserts from "./data/desserts.js";
 import OrderList from "./components/OrderList.jsx";
 
-const menus = { food, drinks, iceCream };
+const menus = { food, drinks, iceCream, desserts };
 
 export default function App() {
   const menuId = document.getElementById("root")?.dataset.menu || "food";
@@ -29,7 +30,7 @@ export default function App() {
       const quantity = Math.max(0, (current[id]?.quantity || 0) + delta);
       const next = { ...current };
       if (!quantity) delete next[id];
-      else next[id] = { id, name: item.name, price: item.price, menu: menu.title.replace("Our ", ""), section: section.title, quantity };
+      else next[id] = { ...current[id], id, name: item.name, price: item.price, menu: menu.title.replace("Our ", ""), section: section.title, quantity };
       return next;
     });
   };
@@ -71,9 +72,10 @@ export default function App() {
         )}
       </main>
       <SiteFooter activePage={menu.id} />
-      <OrderList order={order} open={orderOpen} onOpen={() => setOrderOpen(true)} onClose={() => setOrderOpen(false)} onChange={(id, delta) => setOrder((current) => {
+      <OrderList order={order} open={orderOpen} onOpen={() => setOrderOpen(true)} onClose={() => setOrderOpen(false)} onChange={(id, delta, comment) => setOrder((current) => {
         const next = { ...current }; const quantity = Math.max(0, (next[id]?.quantity || 0) + delta);
-        if (!quantity) delete next[id]; else next[id] = { ...next[id], quantity };
+        if (comment !== undefined) { if (next[id]) next[id] = { ...next[id], comment }; }
+        else if (!quantity) delete next[id]; else next[id] = { ...next[id], quantity };
         return next;
       })} onClear={() => setOrder({})} />
     </div>

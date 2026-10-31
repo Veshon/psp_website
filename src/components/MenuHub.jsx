@@ -18,7 +18,7 @@ const links = [
     icon: "",
   },
   {
-    title: "Ice Cream",
+    title: "Desserts",
     subtitle: "A scoop of something lovely",
     href: "ice-cream-and-shakes.html",
     image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1000&q=85",
@@ -26,7 +26,7 @@ const links = [
     icon: "",
   },
   {
-    title: "Milkshakes",
+    title: "Ice-cream & Shakes",
     subtitle: "Thick, creamy & made for a treat",
     href: "ice-cream-and-shakes.html#milkshakes",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9rSU-Zn9clIQa3I2RrFGbw4zetxtXWXM8cx9IATTy-Q&s=10",
@@ -61,7 +61,7 @@ export default function MenuHub() {
             {links.map((link, index) => (
               <a key={link.title} href={link.href} className="group overflow-hidden rounded-[19px] border border-[#d6b56d]/55 bg-[#fbf8f0] text-[#2b1d18] shadow-[0_10px_28px_rgba(0,0,0,.23)] transition duration-200 hover:-translate-y-1 hover:border-[#e5ca8d] hover:shadow-[0_16px_36px_rgba(0,0,0,.33)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e5ca8d]">
                 <div className="relative h-40 overflow-hidden sm:h-48">
-                  <img src={link.image} alt={link.alt} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" loading={index === 0 ? "eager" : "lazy"} />
+                  {link.image && <img src={link.image} alt={link.alt} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" loading={index === 0 ? "eager" : "lazy"} />}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#16080a]/70 via-[#16080a]/5 to-transparent" />
                   <span className="absolute bottom-3.5 left-4 text-2xl drop-shadow" aria-hidden="true">{link.icon}</span>
                 </div>

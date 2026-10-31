@@ -2,6 +2,7 @@ const pages = [
   ["hub", "Home", "menus.html"],
   ["food", "Food Menu", "food.html"],
   ["drinks", "Drinks Menu", "drinks.html"],
+    ["desserts", "Desserts", "desserts.html"],
   ["iceCream", "Ice-Cream & Shakes", "ice-cream-and-shakes.html"],
 ];
 

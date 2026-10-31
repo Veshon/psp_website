@@ -20,7 +20,7 @@ export default function OrderList({ order, open, onOpen, onClose, onChange, onCl
   const sendToWhatsApp = (event) => {
     event.preventDefault();
     const grouped = items.reduce((groups, item) => { (groups[item.menu] ||= []).push(item); return groups; }, {});
-    const lines = Object.entries(grouped).flatMap(([menu, group]) => [menu, ...group.map((item) => `• ${item.quantity} × ${item.name}`), ""]);
+    const lines = Object.entries(grouped).flatMap(([menu, group]) => [menu, ...group.map((item) => `• ${item.quantity} × ${item.name}${item.comment?.trim() ? `\n  Note: ${item.comment.trim()}` : ""}`), ""]);
     const message = [`Hello Palazzo San Paolo! I'd like to order from table ${tableNumber.trim()}:`, "", ...lines].join("\n").trim();
     window.open(`https://wa.me/35677055218?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
@@ -38,7 +38,7 @@ export default function OrderList({ order, open, onOpen, onClose, onChange, onCl
         </header>
         {items.length ? <>
           <div className="overflow-y-auto px-5 py-3 sm:px-7">
-            {Object.entries(items.reduce((groups, item) => { (groups[item.menu] ||= []).push(item); return groups; }, {})).map(([menu, group]) => <div key={menu} className="py-3"><h3 className="mb-2 border-b border-palazzo-line pb-2 text-[10px] font-bold uppercase tracking-[.16em] text-palazzo-gold-dark">{menu}</h3>{group.map((item) => <div key={item.id} className="flex items-center justify-between gap-3 border-b border-palazzo-line/60 py-3 last:border-0"><div className="min-w-0"><p className="font-serif text-base leading-tight text-palazzo-burgundy">{item.name}</p><p className="mt-1 text-xs text-stone-500">{item.section} · {item.price}</p></div><Quantity item={item} onChange={onChange} /></div>)}</div>)}
+            {Object.entries(items.reduce((groups, item) => { (groups[item.menu] ||= []).push(item); return groups; }, {})).map(([menu, group]) => <div key={menu} className="py-3"><h3 className="mb-2 border-b border-palazzo-line pb-2 text-[10px] font-bold uppercase tracking-[.16em] text-palazzo-gold-dark">{menu}</h3>{group.map((item) => <div key={item.id} className="grid grid-cols-[1fr_auto] items-center gap-3 border-b border-palazzo-line/60 py-3 last:border-0"><div className="min-w-0"><p className="font-serif text-base leading-tight text-palazzo-burgundy">{item.name}</p><p className="mt-1 text-xs text-stone-500">{item.section} · {item.price}</p></div><Quantity item={item} onChange={onChange} /><label className="col-span-2 block text-xs font-medium text-stone-600">Customize this item or add a comment<textarea value={item.comment || ""} onChange={(event) => onChange(item.id, 0, event.target.value)} rows={2} placeholder="For example: no cheese" className="mt-1.5 min-h-16 w-full resize-y rounded-xl border border-palazzo-line bg-white px-3 py-2 text-sm font-normal text-palazzo-ink outline-none focus:border-palazzo-gold-dark focus:ring-2 focus:ring-palazzo-gold/20" /></label></div>)}</div>)}
           </div>
           <footer className="border-t border-palazzo-line bg-white/70 px-5 py-4 sm:px-7">
             <form onSubmit={sendToWhatsApp} className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">

@@ -19,7 +19,7 @@ export default function MenuHero({ image, eyebrow, title, description, cta, targ
         </div>
 
         <div className="absolute inset-0 z-0 overflow-hidden md:relative md:col-start-2 md:row-start-1 md:min-h-0 md:border-l md:border-palazzo-gold/50">
-          <img className="absolute inset-0 h-full w-full object-cover" src={image} alt="" fetchPriority="high" />
+          {image && <img className="absolute inset-0 h-full w-full object-cover" src={image} alt="" fetchPriority="high" />}
           <div className="absolute inset-0 bg-gradient-to-r from-palazzo-burgundy/50 to-transparent md:bg-gradient-to-t md:from-palazzo-burgundy/25 md:to-transparent" />
         </div>
       </div>

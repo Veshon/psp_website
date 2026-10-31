@@ -3,6 +3,7 @@ import { ExternalLinkIcon, FacebookIcon, InstagramIcon, WhatsAppIcon } from "./B
 const pages = [
   ["hub", "Home", "menus.html"],
   ["food", "Food Menu", "food.html"],
+  ["desserts", "Desserts", "desserts.html"],
   ["drinks", "Drinks Menu", "drinks.html"],
   ["iceCream", "Ice-Cream & Shakes", "ice-cream-and-shakes.html"],
 ];

@@ -20,7 +20,7 @@ export default function OrderList({ order, open, onOpen, onClose, onChange, onCl
   const sendToWhatsApp = (event) => {
     event.preventDefault();
     const grouped = items.reduce((groups, item) => { (groups[item.menu] ||= []).push(item); return groups; }, {});
-    const lines = Object.entries(grouped).flatMap(([menu, group]) => [menu, ...group.map((item) => `• ${item.quantity} × ${item.name}${item.comment?.trim() ? `\n  Note: ${item.comment.trim()}` : ""}`), ""]);
+    const lines = Object.entries(grouped).flatMap(([menu, group]) => [menu, ...group.map((item) => `• ${item.quantity} × ${item.name}${item.comment?.trim() ? `\n  *Note: ${item.comment.trim()}*` : ""}`), ""]);
     const message = [`Hello Palazzo San Paolo! I'd like to order from table ${tableNumber.trim()}:`, "", ...lines].join("\n").trim();
     window.open(`https://wa.me/35677055218?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };

@@ -34,6 +34,17 @@ export default function App() {
       return next;
     });
   };
+  const changeComment = (item, section, comment) => {
+    const id = `${menu.id}:${item.name}`;
+    setOrder((current) => ({
+      ...current,
+      [id]: {
+        ...(current[id] || {}), id, name: item.name, price: item.price,
+        menu: menu.title.replace("Our ", ""), section: section.title,
+        quantity: current[id]?.quantity || 1, comment,
+      },
+    }));
+  };
   const needle = query.trim().toLowerCase();
   const sections = needle
     ? menu.sections
@@ -66,7 +77,10 @@ export default function App() {
         <MenuCategoryNav sections={sections} />
 
         {sections.length ? (
-          sections.map((section) => <MenuSection key={section.id} section={section} quantityForItem={(item) => order[`${menu.id}:${item.name}`]?.quantity || 0} onQuantityChange={(item, delta) => changeQuantity(item, section, delta)} />)
+          sections.map((section) => <MenuSection key={section.id} section={section} quantityForItem={(item) => order[`${menu.id}:${item.name}`]?.quantity || 0} onQuantityChange={(item, delta) => changeQuantity(item, section, delta)} onComment={(item) => {
+            const comment = window.prompt(`Add a comment for ${item.name}:`, order[`${menu.id}:${item.name}`]?.comment || "");
+            if (comment !== null) changeComment(item, section, comment);
+          }} />)
         ) : (
           <p className="rounded-xl border border-palazzo-gold/40 bg-black/10 px-5 py-12 text-center font-serif text-lg text-palazzo-cream/80">No menu items match “{query}”.</p>
         )}

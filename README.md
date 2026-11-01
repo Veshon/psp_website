@@ -15,6 +15,7 @@ React and Tailwind CSS project for the restaurant's food, drinks, and ice-cream 
 │   └── index.css                   # Tailwind import and brand theme tokens
 ├── food.html                       # Food page entry point
 ├── drinks.html                     # Drinks page entry point
+├── desserts.html                   # Desserts page entry point
 ├── ice-cream-and-shakes.html       # Ice-cream page entry point
 ├── index.html                      # Default food page entry point
 ├── package.json
@@ -30,7 +31,7 @@ npm install
 npm run dev
 ```
 
-Vite prints a local URL. The menu pages are available at `/food.html`, `/drinks.html`, and `/ice-cream-and-shakes.html`. Create a production build with `npm run build`.
+Vite prints a local URL. The menu pages are available at `/food.html`, `/drinks.html`, `/desserts.html`, and `/ice-cream-and-shakes.html`. Create a production build with `npm run build`.
 
 Open the Vite URL in a browser; do not double-click an HTML file, because React's module imports need to be served by Vite. If the page stays on “Loading the menu…”, check the terminal for the Vite URL or startup error.
 

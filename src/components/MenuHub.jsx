@@ -20,7 +20,7 @@ const links = [
   {
     title: "Desserts",
     subtitle: "A scoop of something lovely",
-    href: "ice-cream-and-shakes.html",
+    href: "desserts.html",
     image: "https://images.unsplash.com/photo-1712262582593-e13609aaf12b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     alt: "Scoops of ice cream",
     icon: "",

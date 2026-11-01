@@ -33,7 +33,7 @@ export default function OrderList({ order, open, onOpen, onClose, onChange, onCl
     {open && <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/65 p-0 backdrop-blur-[2px] sm:items-center sm:p-5" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
       <section role="dialog" aria-modal="true" aria-labelledby="order-title" className="flex max-h-[92dvh] w-full max-w-xl flex-col overflow-hidden rounded-t-[24px] border border-palazzo-gold/50 bg-palazzo-paper shadow-2xl sm:rounded-[24px]">
         <header className="flex items-start justify-between gap-4 border-b border-palazzo-line px-5 py-5 sm:px-7">
-          <div><p className="text-[10px] font-semibold uppercase tracking-[.2em] text-palazzo-gold-dark">Ready when you are</p><h2 id="order-title" className="mt-1 font-serif text-2xl text-palazzo-burgundy">Your order list</h2><p className="mt-1 text-xs text-stone-600">Show this list to your waiter when you’re ready.</p></div>
+          <div><p className="text-[10px] font-semibold uppercase tracking-[.2em] text-palazzo-gold-dark">Ready when you are</p><h2 id="order-title" className="mt-1 font-serif text-2xl text-palazzo-burgundy">Your order list</h2><p className="mt-1 text-xs text-stone-600">Show this list to your waiter when you’re ready or just send it.</p></div>
           <button type="button" onClick={onClose} aria-label="Close order list" className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-xl text-palazzo-burgundy hover:bg-palazzo-cream">×</button>
         </header>
         {items.length ? <>

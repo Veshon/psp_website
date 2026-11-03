@@ -51,7 +51,6 @@ html, #root { min-height: 100%; }
 .menu-page-background {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
   background-color: #2a080e;
 }
 

@@ -8,7 +8,7 @@ const pages = [
 
 export default function SiteHeader({ activePage }) {
   return (
-    <header id="top" className="relative z-20 border-b border-palazzo-gold/50 bg-palazzo-burgundy text-palazzo-cream">
+    <header id="top" className="sticky top-0 z-30 border-b border-palazzo-gold/50 bg-palazzo-burgundy text-palazzo-cream shadow-md">
       <div className="mx-auto flex max-w-[1320px] flex-col items-center justify-between gap-3 px-3 py-3 sm:px-7 sm:py-4 md:min-h-[88px] md:flex-row lg:px-10">
         <a className="flex items-center gap-3.5" href="food.html" aria-label="Palazzo San Paolo Brasserie home">
           <span className="relative grid h-[52px] w-[44px] shrink-0 place-items-center sm:h-[70px] sm:w-[60px]">

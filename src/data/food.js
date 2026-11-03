@@ -189,7 +189,7 @@ const foodMenu = {
     {
       "id": "kids",
       "title": "Kid's Favourites",
-      "layout": "list",
+      "layout": "cards",
       "items": [
         {
           "name": "Chicken Nuggets (4 pieces) + Belgian Fries",

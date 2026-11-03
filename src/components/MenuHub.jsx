@@ -49,8 +49,8 @@ export default function MenuHub() {
           </a>
           <p className="text-[10px] font-semibold uppercase tracking-[.32em] text-[#e5ca8d]">Rabat · Malta</p>
           <h1 className="mt-2 font-serif text-[2.15rem] tracking-[.015em] text-[#f0d38f] sm:text-5xl">Palazzo San Paolo</h1>
-          <p className="mt-1.5 text-[10px] uppercase tracking-[.3em] text-white/75 sm:text-xs">Brasserie</p>
-          <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-white/80 sm:text-base">A palace of timeless taste.<br className="sm:hidden" /> Find something to savour.</p>
+          <p className="mt-1.5 text-[10px] uppercase tracking-[.3em] text-[#f0d38f] sm:text-xl">Brasserie</p>
+          <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-white/80 sm:text-base">A Palace Of Timeless Taste.<br className="sm:hidden" /></p>
           <div className="mx-auto mt-6 flex items-center justify-center gap-3" aria-hidden="true"><span className="h-px w-12 bg-[#c69b52]/65" /><span className="h-1.5 w-1.5 rotate-45 border border-[#e5ca8d]" /><span className="h-px w-12 bg-[#c69b52]/65" /></div>
           </div>
         </header>

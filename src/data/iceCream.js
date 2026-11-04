@@ -3,7 +3,7 @@ const iceCreamMenu = {
   "title": "Ice-Cream and Shakes",
   "description": "Smoothies, milkshakes, affogatos and gelato floats.",
   "hero": {
-    "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1400&q=75",
+    "image": "https://images.unsplash.com/photo-1728508707516-8c8ded94fb5a?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D",
     "eyebrow": "A little indulgence, any time of day",
     "title": "Cool treats.\nHappy moments.",
     "description": "Smoothies, creamy shakes, Italian affogatos and refreshing gelato floats.",

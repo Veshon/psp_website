@@ -8,7 +8,7 @@ const drinksMenu = {
     "title": "Raise a glass\nto good taste.",
     "description": "Explore cocktails, spirits, beer, wine, coffee and refreshing favourites.",
     "cta": "Explore the drinks menu",
-    "target": "#drinks"
+    "target": "#menu"
   },
   "sections": [
     {

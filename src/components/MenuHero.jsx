@@ -11,7 +11,7 @@ export default function MenuHero({ image, eyebrow, title, description, cta, targ
           </h1>
           <p className="mt-4 max-w-md text-[13px] leading-6 text-palazzo-cream/85 sm:mt-5 sm:text-[15px] sm:leading-7">{description}</p>
           <a
-            className="mt-5 inline-flex min-h-11 items-center bg-palazzo-gold px-5 py-3 text-[10px] font-semibold uppercase tracking-[.12em] text-palazzo-burgundy transition hover:bg-palazzo-gold-light md:mt-7"
+            className="mt-5 hidden sm:inline-flex min-h-11 items-center bg-palazzo-gold px-5 py-3 text-[10px] font-semibold uppercase tracking-[.12em] text-palazzo-burgundy transition hover:bg-palazzo-gold-light md:mt-7"
             href={target}
           >
             {cta}

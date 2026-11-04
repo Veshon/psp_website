@@ -4,7 +4,6 @@ const drinksMenu = {
   "description": "Our drinks list, with prices transcribed from the supplied menu. Some item names or prices in the photograph are not fully legible and are marked accordingly.",
   "hero": {
     "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1400&q=75",
-    // "image": "",
     "eyebrow": "From morning coffee to evening cocktails",
     "title": "Raise a glass\nto good taste.",
     "description": "Explore cocktails, spirits, beer, wine, coffee and refreshing favourites.",
@@ -18,27 +17,53 @@ const drinksMenu = {
       "layout": "cards",
       "items": [
         {
-          "name": "Coca-Cola, Sprite, Fanta",
+          "name": "Coca-Cola",
           "price": "€2.50",
           "image": "",
           "alt": "Sample soft drink"
         },
         {
-          "name": "Flat / Sparkling Water",
+          "name": "Sprite",
+          "price": "€2.50",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "Fanta",
+          "price": "€2.50",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "Still Water",
           "price": "€2",
           "image": "",
           "alt": "Sample soft drink"
         },
         {
-          "name": "Powerade / Monster",
+          "name": "Sparkling Water",
+          "price": "€2",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "Powerade",
           "price": "€4",
+          "detail": "Orange/Blood Orange/Citrus/Mountain Blast/PeachApple",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "Monster",
+          "price": "€4",
+          "detail": "Mango/Zero Sugar/VR46/Normal",
           "image": "",
           "alt": "Sample soft drink"
         },
         {
           "name": "Juices",
           "price": "€2",
-          "detail": "Orange, apple or pineapple",
+          "detail": "Orange/Apple/Pineapple/Mango",
           "image": "",
           "alt": "Sample soft drink"
         },
@@ -96,7 +121,7 @@ const drinksMenu = {
         {
           "name": "Cisk",
           "price": "€3",
-          "detail": "Lager, Excel, Chill or NA",
+          "detail": "Lager/Excel/Chill/Non Alcoholic",
           "image": "",
           "alt": "Sample beverage"
         },
@@ -119,14 +144,22 @@ const drinksMenu = {
           "alt": "Sample beverage"
         },
         {
-          "name": "Cider 50cl",
-          "price": "€5",
+          "name": "Cider",
+          "price": "€4.5",
+          "detail": "Mango-Raspberry/Passion Fruit/Pear/Strawberry-Lime/Water Melon",
           "image": "",
           "alt": "Sample beverage"
         },
         {
           "name": "Wine by the Glass",
           "price": "€4",
+          "detail": "Red/White/Rosé",
+          "image": "",
+          "alt": "Sample beverage"
+        },
+        {
+          "name": "Prosecco by the Glass",
+          "price": "€6",
           "image": "",
           "alt": "Sample beverage"
         }
@@ -139,13 +172,19 @@ const drinksMenu = {
       "items": [
         {
           "name": "Baileys",
-          "price": "€3.50",
+          "price": "€4",
           "image": "",
           "alt": "Sample digestif"
         },
         {
           "name": "Amaretto",
-          "price": "€4",
+          "price": "€4.5",
+          "image": "",
+          "alt": "Sample digestif"
+        },
+        {
+          "name": "Cointreau",
+          "price": "€4.50",
           "image": "",
           "alt": "Sample digestif"
         },
@@ -170,31 +209,37 @@ const drinksMenu = {
         },
         {
           "name": "Negroni",
-          "price": "€8",
+          "price": "€9",
           "image": "",
           "alt": "Cocktail served over ice"
         },
         {
           "name": "Long Island Iced Tea",
-          "price": "€10",
+          "price": "€11",
           "image": "",
           "alt": "Cocktail glass"
         },
         {
           "name": "Mimosa",
-          "price": "€6",
+          "price": "€7",
           "image": "",
           "alt": "Mimosa style cocktail"
         },
         {
           "name": "Malibu Sunset",
-          "price": "€6",
+          "price": "€7",
           "image": "",
           "alt": "Colourful cocktail"
         },
         {
           "name": "Margarita",
-          "price": "€7",
+          "price": "€8.5",
+          "image": "",
+          "alt": "Margarita style cocktail"
+        },
+        {
+          "name": "Espresso Martini",
+          "price": "€10",
           "image": "",
           "alt": "Margarita style cocktail"
         }
@@ -251,7 +296,7 @@ const drinksMenu = {
         {
           "name": "Flavours",
           "price": "+€0.50",
-          "detail": "Vanilla, caramel, etc.",
+          "detail": "Vanilla, Caramel, Chocolate, Strawberry etc.",
           "image": "",
           "alt": "Sample coffee"
         }

@@ -44,28 +44,28 @@ const foodMenu = {
         },
         {
           "name": "Bruschetta",
-          "price": "€5",
+          "price": "€6",
           "image": "",
           "alt": "Bruschetta starter",
           "search": "bruschetta"
         },
         {
           "name": "Garlic Bread",
-          "price": "€5",
+          "price": "€6",
           "image": "",
           "alt": "Garlic bread",
           "search": "garlic bread"
         },
         {
           "name": "Maltese Platter Classic",
-          "price": "€10",
+          "price": "€12",
           "image": "",
           "alt": "Sharing platter",
           "search": "maltese platter classic"
         },
         {
           "name": "Maltese Platter Heraldic",
-          "price": "€15",
+          "price": "€16",
           "description": "With Maltese sausage and cheese.",
           "image": "",
           "alt": "Cheese and sausage platter",
@@ -73,7 +73,7 @@ const foodMenu = {
         },
         {
           "name": "English Breakfast",
-          "price": "€14",
+          "price": "€15",
           "description": "Sausage, egg, hash brown, baked beans, bacon and toast.",
           "image": "",
           "alt": "English breakfast plate",
@@ -142,7 +142,7 @@ const foodMenu = {
         },
         {
           "name": "Tuna Salad",
-          "price": "€11",
+          "price": "€12",
           "image": "",
           "alt": "Fresh salad",
           "search": "tuna salad"
@@ -170,7 +170,7 @@ const foodMenu = {
       "items": [
         {
           "name": "Chili Con Carne",
-          "price": "€12",
+          "price": "€14",
           "description": "Served with rice or bread.",
           "image": "",
           "alt": "Hearty chilli dish",
@@ -207,7 +207,7 @@ const foodMenu = {
         },
         {
           "name": "Burger + Belgian Fries",
-          "price": "€6",
+          "price": "€8",
           "detail": "Chicken or beef",
           "search": "burger belgian fries chicken beef",
           "image": "",

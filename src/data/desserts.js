@@ -40,18 +40,18 @@ const dessertMenu = {
         },
         {
           "name": "Gelato",
-          "price": "—",
+          "price": "€3",
           "description": "Vanilla, pistachio, tiramisu or chocolate.",
-          "tag": "Price not legible in supplied menu",
+          "tag": "2 scoops  €5",
           "image": "",
           "alt": "Gelato scoops",
           "search": "gelato vanilla pistachio tiramisu chocolate"
         },
         {
           "name": "Sorbetto",
-          "price": "—",
+          "price": "€3",
           "description": "Mango or lemon.",
-          "tag": "Price not legible in supplied menu",
+          "tag": "2 scoops  €5",
           "image": "",
           "alt": "Fruit sorbet",
           "search": "sorbetto mango lemon"

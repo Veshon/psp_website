@@ -98,6 +98,7 @@ export default function MenuHub() {
             </a>
           </div>
           <p className="mt-5 text-[10px] leading-5 text-white/45">© {new Date().getFullYear()} Palazzo San Paolo Brasserie</p>
+          <p className="mt-1 text-[10px] leading-5 text-white/45">Site developed by <a className="font-semibold text-palazzo-gold-light transition-colors hover:text-white" href="https://veshon.vercel.app" target="_blank" rel="noreferrer">Veshon</a></p>
         </footer>
       </div>
     </main>

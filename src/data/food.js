@@ -165,7 +165,7 @@ const foodMenu = {
     },
     {
       "id": "specialties",
-      "title": "Muniyah's Specialties",
+      "title": "Muniya's Specialties",
       "layout": "cards",
       "items": [
         {

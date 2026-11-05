@@ -197,6 +197,37 @@ const drinksMenu = {
       ]
     },
     {
+      "id": "Spiritz",
+      "title": "Spiritz",
+      "layout": "cards",
+      "items": [
+        {
+          "name": "Aperol Spiritz",
+          "price": "€6",
+          "image": "",
+          "alt": "Sample digestif"
+        },
+        {
+          "name": "Maltese Spiritz",
+          "price": "€7",
+          "image": "",
+          "alt": "Sample digestif"
+        },
+        {
+          "name": "Campari Spiritz",
+          "price": "€6",
+          "image": "",
+          "alt": "Sample digestif"
+        },
+        {
+          "name": " Any other Spiritz",
+          "price": "€6",
+          "image": "",
+          "alt": "Sample digestif"
+        }
+      ]
+    },
+    {
       "id": "cocktails",
       "title": "Cocktails",
       "layout": "cards",

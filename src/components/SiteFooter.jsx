@@ -32,10 +32,10 @@ export default function SiteFooter({ activePage }) {
         </div>
 
         <div>
-          <p className="mb-2 text-[9px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">
+          {/* <p className="hidden sm:block mb-2 text-[9px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">
             Explore the menus
           </p>
-          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs" aria-label="Menu pages">
+          <nav className="hidden sm:flex flex-wrap gap-x-5 gap-y-2 text-xs" aria-label="Menu pages">
             {pages.map(([id, label, href]) => (
               <a
                 className={`py-1 transition-colors hover:text-palazzo-gold-light ${id === activePage ? "text-palazzo-gold-light" : "text-palazzo-cream/80"}`}
@@ -46,7 +46,7 @@ export default function SiteFooter({ activePage }) {
                 {label}
               </a>
             ))}
-          </nav>
+          </nav> */}
           <p className="mb-2 mt-5 text-[9px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">Follow & get in touch</p>
           <div className="flex flex-wrap gap-2">
             <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-palazzo-gold/55 px-3.5 text-xs text-palazzo-cream transition-colors hover:bg-palazzo-gold hover:text-palazzo-burgundy" href="https://www.facebook.com/profile.php?id=61581584915463" target="_blank" rel="noreferrer" aria-label="Visit Palazzo San Paolo Brasserie on Facebook">

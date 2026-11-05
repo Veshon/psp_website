@@ -47,7 +47,7 @@ export default function SiteFooter({ activePage }) {
               </a>
             ))}
           </nav> */}
-          <p className="mb-2 mt-5 text-[9px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">Follow & get in touch</p>
+          <p className="mb-2 mt-2 text-[9px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">Follow & get in touch</p>
           <div className="flex flex-wrap gap-2">
             <a className="inline-flex min-h-10 items-center gap-2 rounded-full border border-palazzo-gold/55 px-3.5 text-xs text-palazzo-cream transition-colors hover:bg-palazzo-gold hover:text-palazzo-burgundy" href="https://www.facebook.com/profile.php?id=61581584915463" target="_blank" rel="noreferrer" aria-label="Visit Palazzo San Paolo Brasserie on Facebook">
               <FacebookIcon className="h-4 w-4" /> Facebook

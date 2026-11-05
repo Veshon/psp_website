@@ -17,9 +17,10 @@ const dessertMenu = {
       "layout": "cards",
       "items": [
         {
-          "name": "Cheesecake Pistachio / Lemon",
+          "name": "Cheesecake",
           "price": "€5",
           "image": "",
+          "detail": "lemon.",
           "alt": "Cheesecake dessert",
           "search": "cheesecake pistachio lemon"
         },

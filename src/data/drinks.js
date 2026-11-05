@@ -219,9 +219,11 @@ const drinksMenu = {
           "image": "",
           "alt": "Sample digestif"
         },
+        ,
         {
-          "name": " Any other Spiritz",
-          "price": "€6",
+          "name": "Hugo Spiritz",
+          "price": "€7.50",
+          "detail": "Procesco, Elderflower syrup, Soda water, Fresh mint, Citrus",
           "image": "",
           "alt": "Sample digestif"
         }

@@ -20,7 +20,7 @@ const dessertMenu = {
           "name": "Cheesecake",
           "price": "€5",
           "image": "",
-          "detail": "lemon.",
+          "detail": "lemon",
           "alt": "Cheesecake dessert",
           "search": "cheesecake pistachio lemon"
         },
@@ -41,7 +41,7 @@ const dessertMenu = {
         {
           "name": "Gelato",
           "price": "€3",
-          "description": "Vanilla, pistachio, tiramisu or chocolate.",
+          "description": "Vanilla, pistachio, tiramisu or chocolate",
           "tag": "2 scoops  €5",
           "image": "",
           "alt": "Gelato scoops",
@@ -50,7 +50,7 @@ const dessertMenu = {
         {
           "name": "Sorbetto",
           "price": "€3",
-          "description": "Mango or lemon.",
+          "description": "Mango or lemon",
           "tag": "2 scoops  €5",
           "image": "",
           "alt": "Fruit sorbet",

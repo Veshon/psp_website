@@ -19,7 +19,7 @@ const foodMenu = {
         {
           "name": "Maltese Pastizzi",
           "price": "€2",
-          "description": "Peas or cheese.",
+          "description": "Peas or cheese",
           "tag": "Maltese favourite",
           "image": "",
           "alt": "Golden baked pastries",
@@ -28,7 +28,7 @@ const foodMenu = {
         {
           "name": "Maltese Ftira Classic",
           "price": "€5",
-          "description": "Tuna, onion, capers and basil leaves.",
+          "description": "Tuna, onion, capers and basil leaves",
           "tag": "Classic",
           "image": "",
           "alt": "Sandwich with fresh fillings",
@@ -37,7 +37,7 @@ const foodMenu = {
         {
           "name": "Maltese Ftira Heraldic",
           "price": "€7",
-          "description": "Pesto, Maltese sausage and cheese.",
+          "description": "Pesto, Maltese sausage and cheese",
           "image": "",
           "alt": "Rustic toasted sandwich",
           "search": "maltese ftira heraldic pesto maltese sausage cheese"
@@ -66,7 +66,7 @@ const foodMenu = {
         {
           "name": "Maltese Platter Heraldic",
           "price": "€16",
-          "description": "With Maltese sausage and cheese.",
+          "description": "With Maltese sausage and cheese",
           "image": "",
           "alt": "Cheese and sausage platter",
           "search": "maltese platter heraldic maltese sausage cheese"
@@ -74,7 +74,7 @@ const foodMenu = {
         {
           "name": "English Breakfast",
           "price": "€15",
-          "description": "Sausage, egg, hash brown, baked beans, bacon and toast.",
+          "description": "Sausage, egg, hash brown, baked beans, bacon and toast",
           "image": "",
           "alt": "English breakfast plate",
           "search": "english breakfast sausage egg hash brown baked beans bacon toast"
@@ -82,7 +82,7 @@ const foodMenu = {
         {
           "name": "Wrap Mexican",
           "price": "€12",
-          "description": "Salad, chili con carne, cheese and sauces.",
+          "description": "Salad, chili con carne, cheese and sauces",
           "image": "",
           "alt": "Filled wrap",
           "search": "wrap mexican salad chili con carne cheese sauces"
@@ -90,7 +90,7 @@ const foodMenu = {
         {
           "name": "Wrap Français",
           "price": "€11",
-          "description": "Salad, chicken, cheese, fried onion and sauces.",
+          "description": "Salad, chicken, cheese, fried onion and sauces",
           "image": "",
           "alt": "Chicken wrap",
           "search": "wrap français salad chicken cheese fried onion sauces"
@@ -98,7 +98,7 @@ const foodMenu = {
         {
           "name": "Deutscher Wrap",
           "price": "€12",
-          "description": "Salad, Frankfurter, cheese, fried onion and sauces.",
+          "description": "Salad, Frankfurter, cheese, fried onion and sauces",
           "image": "",
           "alt": "Sausage wrap",
           "search": "deutscher wrap frankfurter cheese fried onion sauces"
@@ -106,7 +106,7 @@ const foodMenu = {
         {
           "name": "Burger + Belgian Fries",
           "price": "€12",
-          "description": "Chicken or beef, cheese and tomato salad.",
+          "description": "Chicken or beef, cheese and tomato salad",
           "image": "",
           "alt": "Burger with fries",
           "search": "burger belgian fries chicken beef cheese tomato salad"
@@ -135,7 +135,7 @@ const foodMenu = {
         {
           "name": "Caesar Salad",
           "price": "€14",
-          "description": "Chicken, Parmesan, nuts, lettuce and homemade dressing.",
+          "description": "Chicken, Parmesan, nuts, lettuce and homemade dressing",
           "image": "",
           "alt": "Caesar salad",
           "search": "caesar salad chicken parmesan nuts lettuce homemade dressing"
@@ -171,7 +171,7 @@ const foodMenu = {
         {
           "name": "Chili Con Carne",
           "price": "€14",
-          "description": "Served with rice or bread.",
+          "description": "Served with rice or bread",
           "image": "",
           "alt": "Hearty chilli dish",
           "search": "chili con carne rice bread"
@@ -179,7 +179,7 @@ const foodMenu = {
         {
           "name": "Poke Bowl",
           "price": "€14",
-          "description": "Crispy chicken, rice, nuts, seasonal vegetables and fruits.",
+          "description": "Crispy chicken, rice, nuts, seasonal vegetables and fruits",
           "image": "",
           "alt": "Poke bowl",
           "search": "poke bowl crispy chicken rice nuts seasonal vegetables fruits"

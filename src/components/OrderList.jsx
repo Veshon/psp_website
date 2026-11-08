@@ -261,7 +261,7 @@ export default function OrderList({
                     <button
                       type="button"
                       onClick={onClear}
-                      className="min-h-9 px-2 text-xs text-stone-500 underline underline-offset-2 hover:text-palazzo-burgundy"
+                      className="min-h-9 rounded-[100px] bg-red-700 px-2 text-xs text-white hover:bg-red-800"
                     >
                       Clear list
                     </button>

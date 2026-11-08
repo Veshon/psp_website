@@ -136,7 +136,7 @@ const foodMenu = {
           "name": "Caesar Salad",
           "price": "€14",
           "description": "Chicken, Parmesan, nuts, lettuce and homemade dressing",
-          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0vM4dMqevLQOzJT3uq19nRa4kZ4yKDaKWwmegK3T59g&s=10",
+          "image": "",
           "alt": "Caesar salad",
           "search": "caesar salad chicken parmesan nuts lettuce homemade dressing"
         },
@@ -150,14 +150,14 @@ const foodMenu = {
         {
           "name": "Spaghetti Bolognese",
           "price": "€11",
-          "image": "https://media.istockphoto.com/id/585769692/photo/delicious-spaghetti-served-on-a-black-plate.jpg?s=612x612&w=0&k=20&c=e3amYy8LTlFwJj_DpSHyRtQmvyeaH2WNMlzD7fg-jmM=",
+          "image": "../assets/spaghettiBolognese.png",
           "alt": "Spaghetti Bolognese",
           "search": "spaghetti bolognese"
         },
         {
           "name": "Spaghetti Pomodoro",
           "price": "€9",
-          "image": "https://media.istockphoto.com/id/1370115254/photo/amatriciana-pasta-bucatini-amatriciana-famous-italian-recipe-from-amatrice-basic-ingredients.jpg?s=612x612&w=0&k=20&c=pn1UdwMyf0Yz0zulrzdOS0TFCba8TAQDKujwrivnt7o=",
+          "image": "../assets/spaghettiPomodoro.png",
           "alt": "Spaghetti Pomodoro",
           "search": "spaghetti pomodoro tomato pasta"
         }
@@ -202,7 +202,7 @@ const foodMenu = {
           "name": "Spaghetti Pomodoro",
           "price": "€6",
           "search": "spaghetti pomodoro",
-          "image": "https://media.istockphoto.com/id/1370115254/photo/amatriciana-pasta-bucatini-amatriciana-famous-italian-recipe-from-amatrice-basic-ingredients.jpg?s=612x612&w=0&k=20&c=pn1UdwMyf0Yz0zulrzdOS0TFCba8TAQDKujwrivnt7o=",
+          "image": "../assets/spaghettiPomodoro.png",
           "alt": "Sample spaghetti pomodoro"
         },
         {

@@ -292,7 +292,7 @@ const drinksMenu = {
         },
         {
           "name": "Café Macchiato",
-          "price": "€1.80",
+          "price": "€2.80",
           "image": "",
           "alt": "Sample coffee"
         },

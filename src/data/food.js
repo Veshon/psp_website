@@ -83,7 +83,7 @@ const foodMenu = {
           "name": "Wrap Mexican",
           "price": "€12",
           "description": "Salad, chili con carne, cheese and sauces",
-          "image": "",
+          "image": "../assets/wrapFran.png",
           "alt": "Filled wrap",
           "search": "wrap mexican salad chili con carne cheese sauces"
         },
@@ -99,7 +99,7 @@ const foodMenu = {
           "name": "Deutscher Wrap",
           "price": "€12",
           "description": "Salad, Frankfurter, cheese, fried onion and sauces",
-          "image": "",
+          "image": "../assets/wrapFran.png",
           "alt": "Sausage wrap",
           "search": "deutscher wrap frankfurter cheese fried onion sauces"
         },

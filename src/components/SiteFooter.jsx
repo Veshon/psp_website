@@ -17,7 +17,7 @@ export default function SiteFooter({ activePage }) {
             Rabat, Malta
           </p>
           <h2 className="mt-2 font-serif text-xl tracking-[.04em] sm:text-2xl">
-            Palazzo San Paolo Brasserie
+            Brasserie Palazzo San Paolo
           </h2>
           <p className="mt-1.5 text-xs text-palazzo-cream/70">“A Palace of Timeless Taste”</p>
         </div>
@@ -62,7 +62,7 @@ export default function SiteFooter({ activePage }) {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/15 pt-4 text-[10px] text-palazzo-cream/60 sm:flex-row sm:items-center sm:justify-between md:col-span-3">
-          <p>© {new Date().getFullYear()} Palazzo San Paolo Brasserie</p>
+          <p>© {new Date().getFullYear()} Brasserie Palazzo San Paolo</p>
           <p>Designed & Developed by <a className="font-semibold text-palazzo-gold-light transition-colors hover:text-white" href="https://veshon.vercel.app" target="_blank" rel="noreferrer">Veshon</a></p>
           <a className="w-fit text-palazzo-gold-light transition-colors hover:text-white" href="#top">
             Back to top ↑

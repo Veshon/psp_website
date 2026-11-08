@@ -184,13 +184,13 @@ const drinksMenu = {
         },
         {
           "name": "Cointreau",
-          "price": "€4.50",
+          "price": "€5",
           "image": "",
           "alt": "Sample digestif"
         },
         {
           "name": "Cognac",
-          "price": "€4.50",
+          "price": "€5",
           "image": "",
           "alt": "Sample digestif"
         }
@@ -298,7 +298,7 @@ const drinksMenu = {
         },
         {
           "name": "Café Latte",
-          "price": "€2.50",
+          "price": "€3",
           "image": "",
           "alt": "Sample coffee"
         },

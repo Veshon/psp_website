@@ -21,7 +21,7 @@ const foodMenu = {
           "price": "€2",
           "description": "Peas or cheese",
           "tag": "Maltese favourite",
-          "image": "",
+          "image": "../assets/pastizzi.png",
           "alt": "Golden baked pastries",
           "search": "maltese pastizzi peas cheese"
         },
@@ -30,7 +30,7 @@ const foodMenu = {
           "price": "€5",
           "description": "Tuna, onion, capers and basil leaves",
           "tag": "Classic",
-          "image": "",
+          "image": "../assets/ftiraClassic.png",
           "alt": "Sandwich with fresh fillings",
           "search": "maltese ftira classic tuna onion capers basil leaves"
         },
@@ -45,21 +45,21 @@ const foodMenu = {
         {
           "name": "Bruschetta",
           "price": "€6",
-          "image": "",
+          "image": "../assets/bruschetta.png",
           "alt": "Bruschetta starter",
           "search": "bruschetta"
         },
         {
           "name": "Garlic Bread",
           "price": "€6",
-          "image": "",
+          "image": "../assets/garlicBread.png",
           "alt": "Garlic bread",
           "search": "garlic bread"
         },
         {
           "name": "Maltese Platter Classic",
           "price": "€12",
-          "image": "",
+          "image": "../assets/platterClassic.png",
           "alt": "Sharing platter",
           "search": "maltese platter classic"
         },
@@ -91,7 +91,7 @@ const foodMenu = {
           "name": "Wrap Français",
           "price": "€11",
           "description": "Salad, chicken, cheese, fried onion and sauces",
-          "image": "",
+          "image": "../assets/wrapFran.png",
           "alt": "Chicken wrap",
           "search": "wrap français salad chicken cheese fried onion sauces"
         },
@@ -114,7 +114,7 @@ const foodMenu = {
         {
           "name": "Burger Maison + Belgian Fries",
           "price": "€14",
-          "image": "",
+          "image": "../assets/burgerMaison.png",
           "alt": "House burger and fries",
           "search": "burger maison belgian fries chicken beef"
         },
@@ -136,7 +136,7 @@ const foodMenu = {
           "name": "Caesar Salad",
           "price": "€14",
           "description": "Chicken, Parmesan, nuts, lettuce and homemade dressing",
-          "image": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0vM4dMqevLQOzJT3uq19nRa4kZ4yKDaKWwmegK3T59g&s=10",
           "alt": "Caesar salad",
           "search": "caesar salad chicken parmesan nuts lettuce homemade dressing"
         },
@@ -150,14 +150,14 @@ const foodMenu = {
         {
           "name": "Spaghetti Bolognese",
           "price": "€11",
-          "image": "",
+          "image": "https://media.istockphoto.com/id/585769692/photo/delicious-spaghetti-served-on-a-black-plate.jpg?s=612x612&w=0&k=20&c=e3amYy8LTlFwJj_DpSHyRtQmvyeaH2WNMlzD7fg-jmM=",
           "alt": "Spaghetti Bolognese",
           "search": "spaghetti bolognese"
         },
         {
           "name": "Spaghetti Pomodoro",
           "price": "€9",
-          "image": "",
+          "image": "https://media.istockphoto.com/id/1370115254/photo/amatriciana-pasta-bucatini-amatriciana-famous-italian-recipe-from-amatrice-basic-ingredients.jpg?s=612x612&w=0&k=20&c=pn1UdwMyf0Yz0zulrzdOS0TFCba8TAQDKujwrivnt7o=",
           "alt": "Spaghetti Pomodoro",
           "search": "spaghetti pomodoro tomato pasta"
         }
@@ -172,7 +172,7 @@ const foodMenu = {
           "name": "Chili Con Carne",
           "price": "€14",
           "description": "Served with rice or bread",
-          "image": "",
+          "image": "../assets/chiliconcarne.png",
           "alt": "Hearty chilli dish",
           "search": "chili con carne rice bread"
         },
@@ -180,7 +180,7 @@ const foodMenu = {
           "name": "Poke Bowl",
           "price": "€14",
           "description": "Crispy chicken, rice, nuts, seasonal vegetables and fruits",
-          "image": "",
+          "image": "../assets/pokeBowl.png",
           "alt": "Poke bowl",
           "search": "poke bowl crispy chicken rice nuts seasonal vegetables fruits"
         }
@@ -202,7 +202,7 @@ const foodMenu = {
           "name": "Spaghetti Pomodoro",
           "price": "€6",
           "search": "spaghetti pomodoro",
-          "image": "",
+          "image": "https://media.istockphoto.com/id/1370115254/photo/amatriciana-pasta-bucatini-amatriciana-famous-italian-recipe-from-amatrice-basic-ingredients.jpg?s=612x612&w=0&k=20&c=pn1UdwMyf0Yz0zulrzdOS0TFCba8TAQDKujwrivnt7o=",
           "alt": "Sample spaghetti pomodoro"
         },
         {
@@ -217,7 +217,7 @@ const foodMenu = {
           "name": "Plain Pasta with Butter",
           "price": "€4",
           "search": "plain pasta butter",
-          "image": "",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTggWP8gVUL89TtZ5-9g3ne9lfHAMNbkOLDJIbDskx60g&s=10",
           "alt": "Sample buttered pasta"
         }
       ]

@@ -1,3 +1,5 @@
+import FoodImage from "./FoodImage.jsx";
+
 function QuantityControl({ item, quantity, onQuantityChange, onComment }) {
   return <div className="mt-3 flex flex-wrap items-center gap-2 self-start">
     {quantity === 0 ? <button type="button" onClick={() => onQuantityChange?.(item, 1)} className="min-h-10 rounded-full border border-palazzo-gold-dark/50 px-4 text-xs font-semibold text-palazzo-burgundy transition hover:bg-palazzo-burgundy hover:text-palazzo-cream focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-palazzo-gold-dark">Add to list</button> : <div className="inline-flex min-h-10 items-center gap-3 rounded-full border border-palazzo-gold/50 bg-white/70 px-1.5" aria-label={`${item.name}, quantity ${quantity}`}><button type="button" onClick={() => onQuantityChange?.(item, -1)} aria-label={`Remove one ${item.name}`} className="grid h-8 w-8 place-items-center rounded-full text-lg text-palazzo-burgundy hover:bg-palazzo-cream">−</button><span className="min-w-4 text-center text-sm font-semibold tabular-nums">{quantity}</span><button type="button" onClick={() => onQuantityChange?.(item, 1)} aria-label={`Add one ${item.name}`} className="grid h-8 w-8 place-items-center rounded-full text-lg text-palazzo-burgundy hover:bg-palazzo-cream">+</button></div>}
@@ -10,13 +12,7 @@ export default function MenuItemCard({ item, quantity = 0, onQuantityChange, onC
     <article className="group flex min-h-[104px] min-w-0 flex-row overflow-hidden rounded-xl border border-palazzo-gold/30 bg-palazzo-paper text-palazzo-ink shadow-[0_6px_18px_rgba(0,0,0,.18)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(0,0,0,.24)] md:min-h-0 md:flex-col md:border-palazzo-gold/40">
       {item.image && (
         <div className="relative aspect-square w-[88px] shrink-0 overflow-hidden bg-palazzo-cream md:aspect-[1.45] md:w-full">
-          <img
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.035]"
-            src={item.image}
-            alt={item.alt}
-            loading="lazy"
-            decoding="async"
-          />
+          <FoodImage item={item} className="h-full w-full" imageClassName="transition-transform duration-500 group-hover:scale-[1.035]" />
         </div>
       )}
       <div className="flex min-w-0 flex-1 flex-col justify-center px-3 py-3 sm:px-3.5 md:p-4 lg:p-[18px]">

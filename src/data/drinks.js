@@ -6,7 +6,7 @@ const drinksMenu = {
     "image": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1400&q=75",
     "eyebrow": "From morning coffee to evening cocktails",
     "title": "Raise a glass\nto good taste.",
-    "description": "Explore cocktails, spirits, beer, wine, coffee and refreshing favourites.",
+    "description": "Explore cocktails, spritz, beer, wine, coffee and refreshing favourites.",
     "cta": "Explore the drinks menu",
     "target": "#menu"
   },
@@ -197,31 +197,31 @@ const drinksMenu = {
       ]
     },
     {
-      "id": "Spiritz",
-      "title": "Spiritz",
+      "id": "Spritz",
+      "title": "Spritz",
       "layout": "cards",
       "items": [
         {
-          "name": "Aperol Spiritz",
+          "name": "Aperol Spritz",
           "price": "€6",
           "image": "",
           "alt": "Sample digestif"
         },
         {
-          "name": "Maltese Spiritz",
+          "name": "Maltese Spritz",
           "price": "€7",
           "image": "",
           "alt": "Sample digestif"
         },
         {
-          "name": "Campari Spiritz",
+          "name": "Campari Spritz",
           "price": "€6",
           "image": "",
           "alt": "Sample digestif"
         },
         ,
         {
-          "name": "Hugo Spiritz",
+          "name": "Hugo Spritz",
           "price": "€7.50",
           "detail": "Procesco, Elderflower syrup, Soda water, Fresh mint, Citrus",
           "image": "",

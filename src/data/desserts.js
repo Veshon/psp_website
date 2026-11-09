@@ -39,19 +39,37 @@ const dessertMenu = {
           "search": "apple pie vanilla ice cream"
         },
         {
-          "name": "Gelato",
+          "name": "Gelato (1 scoop)",
           "price": "€3",
           "description": "Vanilla, pistachio, tiramisu or chocolate",
-          "tag": "2 scoops  €5",
+          // "tag": "2 scoops  €5",
           "image": "",
           "alt": "Gelato scoops",
           "search": "gelato vanilla pistachio tiramisu chocolate"
         },
         {
-          "name": "Sorbetto",
+          "name": "Gelato (2 scoops)",
+          "price": "€5",
+          "description": "Vanilla, pistachio, tiramisu or chocolate",
+          // "tag": "2 scoops  €5",
+          "image": "",
+          "alt": "Gelato scoops",
+          "search": "gelato vanilla pistachio tiramisu chocolate"
+        },
+        {
+          "name": "Sorbetto (1 scoop)",
           "price": "€3",
           "description": "Mango or lemon",
-          "tag": "2 scoops  €5",
+          // "tag": "2 scoops  €5",
+          "image": "",
+          "alt": "Fruit sorbet",
+          "search": "sorbetto mango lemon"
+        },
+        {
+          "name": "Sorbetto (2 scoops)",
+          "price": "€5",
+          "description": "Mango or lemon",
+          // "tag": "2 scoops  €5",
           "image": "",
           "alt": "Fruit sorbet",
           "search": "sorbetto mango lemon"

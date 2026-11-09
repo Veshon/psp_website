@@ -18,12 +18,14 @@ const drinksMenu = {
       "items": [
         {
           "name": "Coca-Cola",
+          "detail": "Coke/Zero Sugar",
           "price": "€2.50",
           "image": "",
           "alt": "Sample soft drink"
         },
         {
           "name": "Sprite",
+          "detail": "Sprite/Zero Sugar",
           "price": "€2.50",
           "image": "",
           "alt": "Sample soft drink"
@@ -31,6 +33,19 @@ const drinksMenu = {
         {
           "name": "Fanta",
           "price": "€2.50",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "7UP",
+          "price": "€2.50",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "Kinnie",
+          "detail": "Kinnie/Zero Sugar",
+          "price": "€3",
           "image": "",
           "alt": "Sample soft drink"
         },
@@ -63,14 +78,19 @@ const drinksMenu = {
         {
           "name": "Juices",
           "price": "€2",
-          "detail": "Orange/Apple/Pineapple/Mango",
+          "detail": "Orange/Apple/Pineapple/Mango/Peach/Banana",
           "image": "",
           "alt": "Sample soft drink"
         },
         {
-          "name": "Iced Tea",
+          "name": "Iced Tea (Peach)",
           "price": "€2.50",
-          "detail": "Peach or lemon",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "Iced Tea (Lemon)",
+          "price": "€2.50",
           "image": "",
           "alt": "Sample soft drink"
         }
@@ -119,9 +139,16 @@ const drinksMenu = {
       "layout": "cards",
       "items": [
         {
-          "name": "Cisk",
+          "name": "Cisk 25cl",
           "price": "€3",
           "detail": "Lager/Excel/Chill/Non Alcoholic",
+          "image": "",
+          "alt": "Sample beverage"
+        },
+        {
+          "name": "Cisk 50cl",
+          "price": "€5",
+          "detail": "Lager/Excel",
           "image": "",
           "alt": "Sample beverage"
         },
@@ -271,10 +298,16 @@ const drinksMenu = {
           "alt": "Margarita style cocktail"
         },
         {
+          "name": "Tequila Sunrise",
+          "price": "€7",
+          "image": "",
+          "alt": "Tequila Sunrise style cocktail"
+        },
+        {
           "name": "Espresso Martini",
           "price": "€10",
           "image": "",
-          "alt": "Margarita style cocktail"
+          "alt": "Espresso Martini style cocktail"
         }
       ],
         },
@@ -286,7 +319,6 @@ const drinksMenu = {
         {
           "name": "Espresso",
           "price": "€1.80",
-          "detail": "Price not clearly legible in supplied photograph",
           "image": "",
           "alt": "Sample coffee"
         },

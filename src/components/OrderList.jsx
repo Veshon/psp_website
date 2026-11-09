@@ -209,7 +209,7 @@ export default function OrderList({
                                   onChange(item.id, 0, event.target.value)
                                 }
                                 rows={2}
-                                placeholder="Example: No cheese"
+                                placeholder="Add a comment..."
                                 className="mt-1.5 min-h-16 w-full resize-y rounded-xl border border-palazzo-line bg-white px-3 py-2 text-sm font-normal text-palazzo-ink outline-none focus:border-palazzo-gold-dark focus:ring-2 focus:ring-palazzo-gold/20"
                               />
                             </label>

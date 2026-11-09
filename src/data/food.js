@@ -17,9 +17,17 @@ const foodMenu = {
       "layout": "cards",
       "items": [
         {
-          "name": "Maltese Pastizzi",
+          "name": "Maltese Pastizzi Cheese",
           "price": "€2",
-          "description": "Peas or cheese",
+          "tag": "Maltese favourite",
+          "image": "../assets/pastizzi.png",
+          "alt": "Golden baked pastries",
+          "search": "maltese pastizzi peas cheese"
+        },
+        {
+          "name": "Maltese Pastizzi Peas",
+          "price": "€2",
+        
           "tag": "Maltese favourite",
           "image": "../assets/pastizzi.png",
           "alt": "Golden baked pastries",
@@ -28,7 +36,7 @@ const foodMenu = {
         {
           "name": "Maltese Ftira Classic",
           "price": "€5",
-          "description": "Tuna, onion, capers and basil leaves",
+          "description": "Tuna, onion, capers and basil leaves, lettuce, and dry tomato",
           "tag": "Classic",
           "image": "../assets/ftiraClassic.png",
           "alt": "Sandwich with fresh fillings",
@@ -37,7 +45,7 @@ const foodMenu = {
         {
           "name": "Maltese Ftira Heraldic",
           "price": "€7",
-          "description": "Pesto, Maltese sausage and cheese",
+          "description": "Pesto, Maltese sausage, cheese, lettuce and dry tomato",
           "image": "",
           "alt": "Rustic toasted sandwich",
           "search": "maltese ftira heraldic pesto maltese sausage cheese"
@@ -66,7 +74,7 @@ const foodMenu = {
         {
           "name": "Maltese Platter Heraldic",
           "price": "€16",
-          "description": "With Maltese sausage and cheese",
+          "description": "Platter ClassicWith Maltese sausage and cheese",
           "image": "",
           "alt": "Cheese and sausage platter",
           "search": "maltese platter heraldic maltese sausage cheese"

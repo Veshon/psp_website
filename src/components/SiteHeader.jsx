@@ -20,8 +20,8 @@ export default function SiteHeader({ activePage }) {
             />
           </span>
           <span>
-            <span className="block font-serif text-[14px] leading-tight tracking-[.09em] sm:text-[19px] sm:tracking-[.11em]">PALAZZO SAN PAOLO</span>
-            <span className="mt-1 block text-[8px] tracking-[.18em] text-palazzo-gold-light sm:mt-1.5 sm:text-[9px] sm:tracking-[.24em]">BRASSERIE · RABAT, MALTA</span>
+            <span className="block font-serif text-[14px] leading-tight tracking-[.09em] sm:text-[19px] sm:tracking-[.11em]">BRASSERIE</span>
+            <span className="mt-1 block text-[10px] tracking-[.18em] text-palazzo-gold-light sm:mt-1.5 sm:text-[9px] sm:tracking-[.24em]">PALAZZO SAN PAOLO</span>
           </span>
         </a>
         <nav className="flex w-full max-w-[580px] flex-nowrap justify-center gap-1 md:w-auto md:gap-4" aria-label="Main navigation">

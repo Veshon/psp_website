@@ -1,6 +1,6 @@
 export default function MenuHero({ image, eyebrow, title, description, cta, target }) {
   return (
-    <section className="overflow-hidden bg-palazzo-burgundy text-palazzo-cream">
+    <section className="overflow-hidden bg-palazzo-burgundy text-palazzo-cream hidden sm:block">
       <div className="relative mx-auto grid min-h-[270px] max-w-[1320px] items-stretch md:min-h-[440px] md:grid-cols-[.9fr_1.1fr] lg:min-h-[500px]">
         <div className="relative z-10 flex min-h-[270px] flex-col items-start justify-center bg-gradient-to-r from-palazzo-burgundy/95 via-palazzo-burgundy/85 to-palazzo-burgundy/55 px-5 py-9 sm:px-8 md:min-h-0 md:bg-none md:py-14 lg:px-12">
           <p className="text-[10px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">

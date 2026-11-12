@@ -178,9 +178,23 @@ const drinksMenu = {
           "alt": "Sample beverage"
         },
         {
-          "name": "Wine by the Glass",
+          "name": "Wine by the Glass (Red)",
           "price": "€4",
-          "detail": "Red/White/Rosé",
+          "detail": "",
+          "image": "",
+          "alt": "Sample beverage"
+        },
+        {
+          "name": "Wine by the Glass (White)",
+          "price": "€4",
+          "detail": "Sweet/Dry",
+          "image": "",
+          "alt": "Sample beverage"
+        },
+        {
+          "name": "Wine by the Glass (Rosé)",
+          "price": "€4",
+          "detail": "",
           "image": "",
           "alt": "Sample beverage"
         },

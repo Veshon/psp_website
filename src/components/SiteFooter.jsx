@@ -12,7 +12,7 @@ export default function SiteFooter({ activePage }) {
   return (
     <footer className="border-t border-palazzo-gold/50 bg-palazzo-burgundy text-palazzo-cream">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-9 sm:px-7 sm:py-11 md:grid-cols-[1.1fr_1fr_auto] md:items-start lg:px-10">
-        <div>
+        {/* <div>
           <p className="text-[9px] font-semibold uppercase tracking-[.2em] text-palazzo-gold-light">
             Rabat, Malta
           </p>
@@ -20,7 +20,7 @@ export default function SiteFooter({ activePage }) {
             Brasserie Palazzo San Paolo
           </h2>
           <p className="mt-1.5 text-xs text-palazzo-cream/70">“A Palace of Timeless Taste”</p>
-        </div>
+        </div> */}
 
         <div>
           <p className="mb-3 text-[9px] font-semibold uppercase tracking-[.18em] text-palazzo-gold-light">Visit or reserve</p>

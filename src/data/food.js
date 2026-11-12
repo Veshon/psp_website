@@ -46,7 +46,7 @@ const foodMenu = {
           "name": "Maltese Ftira Heraldic",
           "price": "€7",
           "description": "Pesto, Maltese sausage, cheese, lettuce and dry tomato",
-          "image": "",
+          "image": "../assets/ftiraHeraldic.png",
           "alt": "Rustic toasted sandwich",
           "search": "maltese ftira heraldic pesto maltese sausage cheese"
         },
@@ -115,7 +115,7 @@ const foodMenu = {
           "name": "Burger + Belgian Fries",
           "price": "€12",
           "description": "Chicken or beef, cheese and tomato salad",
-          "image": "",
+          "image": "../../assets/burger.png",
           "alt": "Burger with fries",
           "search": "burger belgian fries chicken beef cheese tomato salad"
         },
@@ -144,7 +144,7 @@ const foodMenu = {
           "name": "Caesar Salad",
           "price": "€14",
           "description": "Chicken, Parmesan, nuts, lettuce and homemade dressing",
-          "image": "",
+          "image": "../../assets/caesarSalad.png",
           "alt": "Caesar salad",
           "search": "caesar salad chicken parmesan nuts lettuce homemade dressing"
         },
@@ -203,7 +203,7 @@ const foodMenu = {
           "name": "Chicken Nuggets (4 pieces) + Belgian Fries",
           "price": "€6",
           "search": "chicken nuggets 4 pieces belgian fries",
-          "image": "",
+          "image": "../../assets/chickenNuggets.png",
           "alt": "Sample chicken nuggets and fries"
         },
         {

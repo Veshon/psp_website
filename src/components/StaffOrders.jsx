@@ -22,6 +22,25 @@ const receiptMenuLabel = (menu) => {
   if (order === 3) return "Desserts";
   return name || "Other items";
 };
+const groupOrderItems = (items = []) => {
+  const groups = new Map();
+  items.forEach((item, index) => {
+    const menu = item.menu || "Other items";
+    if (!groups.has(menu)) groups.set(menu, []);
+    groups.get(menu).push({ ...item, originalIndex: index });
+  });
+  return [...groups.entries()]
+    .sort(([a], [b]) => receiptMenuOrder(a) - receiptMenuOrder(b))
+    .map(([menu, menuItems]) => ({
+      menu,
+      label: receiptMenuLabel(menu),
+      items: menuItems.sort((a, b) => {
+        const aSmoothie = /smoothie/i.test(`${a.name || ""} ${a.section || ""}`) ? 0 : 1;
+        const bSmoothie = /smoothie/i.test(`${b.name || ""} ${b.section || ""}`) ? 0 : 1;
+        return aSmoothie - bSmoothie || a.originalIndex - b.originalIndex;
+      }),
+    }));
+};
 const buildReceiptPdf = async (order) => {
   const { jsPDF } = await import("jspdf");
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "b5" });
@@ -233,6 +252,7 @@ export default function StaffOrders() {
 function OrderCard({ order, onPrint, onStatusChange }) {
   const status = order.status || "new";
   const created = order.createdAt?.toDate?.();
+  const itemGroups = groupOrderItems(order.items || []);
   return (
     <article className="staff-order-card rounded-2xl border border-[#c69b52]/40 bg-white p-4 shadow-sm sm:p-5">
       <header className="flex flex-wrap items-start justify-between gap-3 border-b border-stone-100 pb-3">
@@ -246,7 +266,7 @@ function OrderCard({ order, onPrint, onStatusChange }) {
           <button type="button" onClick={onPrint} className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[#8d632c]/40 px-3 text-sm font-medium text-[#51131b] hover:bg-[#fbf8f0]" aria-label={`Open B5 receipt PDF for table ${order.tableNumber}`}><span aria-hidden="true">⎙</span><span className="hidden sm:inline">Print</span></button>
         </div>
       </header>
-      <ul className="divide-y divide-stone-100">{(order.items || []).map((item, index) => <li key={`${item.name}-${index}`} className="py-3"><div className="flex justify-between gap-3 text-sm"><span className="min-w-0"><strong className="mr-1 tabular-nums">{item.quantity} ×</strong>{item.name}</span><span className="shrink-0 text-right">{item.lineTotal == null ? item.price : money(item.lineTotal)}</span></div>{item.comment && <p className="mt-1 pl-6 text-xs text-stone-600"><strong>Note:</strong> {item.comment}</p>}</li>)}</ul>
+      <div className="divide-y divide-stone-100">{itemGroups.map((group) => <section key={group.menu} className="py-2" aria-label={group.label}><h4 className="pb-1 text-xs font-semibold uppercase tracking-[.12em] text-[#8d632c]">{group.label}</h4><ul className="divide-y divide-stone-100">{group.items.map((item, index) => <li key={`${item.name}-${item.originalIndex ?? index}`} className="py-3"><div className="flex justify-between gap-3 text-sm"><span className="min-w-0"><strong className="mr-1 tabular-nums">{item.quantity} ×</strong>{item.name}</span><span className="shrink-0 text-right">{item.lineTotal == null ? item.price : money(item.lineTotal)}</span></div>{item.comment && <p className="mt-1 pl-6 text-xs text-stone-600"><strong>Note:</strong> {item.comment}</p>}</li>)}</ul></section>)}</div>
       <footer className="flex items-center justify-between border-t border-stone-200 pt-3 text-sm"><span className="text-xs text-stone-500">{order.items?.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0) || 0} item(s)</span><span className="font-semibold">Total <span className="ml-1 text-base">{money(order.total)}</span></span></footer>
     </article>
   );

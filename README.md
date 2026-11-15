@@ -44,3 +44,18 @@ Open the Vite URL in a browser; do not double-click an HTML file, because React'
 - **Add the restaurant crest:** save it as `public/assets/palazzo-logo.png`. The header shows a monogram fallback until the file is present.
 
 Menu photography currently uses Unsplash image URLs and needs an internet connection.
+
+## Shared online orders (Firebase)
+
+The order form stores submitted orders in Cloud Firestore. Staff can open `/staff.html` on their own devices and see new orders live, then mark them as preparing, served, or cancelled. The customer's draft order still stays in that customer's browser until they submit it.
+
+### One-time Firebase setup
+
+1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/) and register a Web app.
+2. In **Authentication → Sign-in method**, enable **Email/Password**. Do not enable public account creation. In **Users**, create one account per staff member and share credentials securely.
+3. In **Firestore Database**, create a database and publish the rules from `firebase/firestore.rules` (Firestore → Rules). Keep these rules; they allow public order creation but only signed-in staff to read/change orders.
+4. Copy `.env.example` to `.env.local` and fill in the Web app config values from Project settings. The `VITE_` values are public client configuration, not admin credentials.
+5. Restart the Vite server or rebuild/redeploy the site after setting the environment values. Deploy both the menu pages and `staff.html` to the same site origin.
+6. Open `https://your-site/staff.html`, sign in with a staff account, and leave the page open to receive live updates.
+
+If using Firebase CLI, deploy the rules with `firebase deploy --only firestore:rules` after associating the local project. Never put a Firebase service-account key in this frontend project. Staff accounts share the same access level; any signed-in staff member can view, update, or delete all orders. Configure Firebase billing/usage alerts and consider enabling App Check before public launch to reduce abusive automated submissions.

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { WhatsAppIcon } from "./BrandIcons.jsx";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db, firebaseConfigured } from "../firebase.js";
 
 function Quantity({ item, onChange }) {
   return (
@@ -51,6 +52,8 @@ export default function OrderList({
   const [tableNumber, setTableNumber] = useState(
     () => localStorage.getItem("palazzo-table-number") || "",
   );
+  const [sending, setSending] = useState(false);
+  const [submissionNotice, setSubmissionNotice] = useState(null);
   const items = Object.values(order);
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
   const total = items.reduce(
@@ -70,48 +73,37 @@ export default function OrderList({
     };
   }, [open, onClose]);
 
-  const sendToWhatsApp = (event) => {
+  const sendOrder = async (event) => {
     event.preventDefault();
-    const now = new Date();
-    const options = {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    };
-    const dateTimeStr = now.toLocaleString("en-GB", options);
-    const grouped = items.reduce((groups, item) => {
-      (groups[item.menu] ||= []).push(item);
-      return groups;
-    }, {});
-    const lines = Object.entries(grouped).flatMap(([menu, group]) => [
-      menu,
-      ...group.map((item) => {
-        const unitPrice = priceInEuros(item.price);
-        const amount =
-          unitPrice === null
-            ? ` (${item.price} each; price not included in total)`
-            : `   ${euro(unitPrice * item.quantity)}`;
-        return `• ${item.quantity} × ${item.name}${amount}${item.comment?.trim() ? `\n  Note: ${item.comment.trim()}` : ""}`;
-      }),
-      "",
-    ]);
-    const message = [
-      `${dateTimeStr}`,
-      `Table ${tableNumber.trim()}`,
-      "",
-      ...lines,
-      `Total: ${euro(total)}`,
-    ]
-      .join("\n")
-      .trim();
-    window.open(
-      `https://wa.me/35677055218?text=${encodeURIComponent(message)}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
+    if (!firebaseConfigured || !db) {
+      setSubmissionNotice({ type: "error", title: "Order not sent", message: "Online ordering is not connected yet. Your basket is still here. Please ask a staff member for help." });
+      return;
+    }
+    setSending(true); setSubmissionNotice(null);
+    try {
+      await addDoc(collection(db, "orders"), {
+        tableNumber: tableNumber.trim(),
+        items: items.map((item) => ({
+          name: item.name, menu: item.menu, section: item.section,
+          quantity: item.quantity, price: item.price,
+          lineTotal: priceInEuros(item.price) === null ? null : priceInEuros(item.price) * item.quantity,
+          comment: item.comment?.trim() || "",
+        })),
+        total,
+        status: "new",
+        createdAt: serverTimestamp(),
+      });
+      onClear();
+      setSubmissionNotice({ type: "success", title: "Order sent", message: `Your order for table ${tableNumber.trim()} has been sent to the staff team.` });
+    } catch (error) {
+      setSubmissionNotice({
+        type: "error",
+        title: "Order not sent",
+        message: error.code === "permission-denied"
+          ? "The order could not be accepted by the restaurant system. Your basket is still here. Please ask a staff member for help."
+          : "We couldn't reach the restaurant system. Check your connection and try again. Your basket is still here.",
+      });
+    } finally { setSending(false); }
   };
 
   return (
@@ -229,13 +221,14 @@ export default function OrderList({
                     </strong>
                   </div>
                   <form
-                    onSubmit={sendToWhatsApp}
+                    onSubmit={sendOrder}
                     className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end"
                   >
                     <label className="block text-xs font-semibold text-palazzo-ink">
                       Table number{" "}
                       <span className="text-palazzo-burgundy">*</span>
                       <input
+                        id="order-table-number"
                         required
                         value={tableNumber}
                         onChange={(event) => {
@@ -251,12 +244,13 @@ export default function OrderList({
                     </label>
                     <button
                       type="submit"
+                      disabled={sending}
                       className="inline-flex min-h-12 w-full items-center justify-center gap-2.5 rounded-xl bg-[#1f8f54] px-4 text-[13px] font-semibold text-white shadow-sm transition hover:bg-[#187343] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f8f54] sm:w-auto sm:rounded-full sm:px-5 sm:text-sm"
                     >
-                      <WhatsAppIcon className="h-5 w-5 shrink-0" />
-                      <span>Send order on WhatsApp</span>
+                      <span>{sending ? "Sending…" : "Place order"}</span>
                     </button>
                   </form>
+                  {!firebaseConfigured && <p className="mt-2 text-xs text-amber-800">Online ordering is not connected yet. Ask a staff member to take your order.</p>}
                   <div className="mt-3 flex items-center justify-between gap-3">
                     <button
                       type="button"
@@ -265,10 +259,7 @@ export default function OrderList({
                     >
                       Clear list
                     </button>
-                    <p className="text-right text-[10px] leading-4 text-stone-500">
-                      WhatsApp opens with your order ready. Tap Send to
-                      place it.
-                    </p>
+                    <p className="text-right text-[10px] leading-4 text-stone-500">Your order will appear on the staff order screen.</p>
                   </div>
                 </footer>
               </>
@@ -295,6 +286,14 @@ export default function OrderList({
           </section>
         </div>
       )}
+      {submissionNotice && <div className="fixed inset-0 z-[70] grid place-items-center bg-black/70 p-4">
+        <section role={submissionNotice.type === "error" ? "alertdialog" : "dialog"} aria-modal="true" aria-labelledby="order-notice-title" aria-describedby="order-notice-message" className="w-full max-w-sm rounded-3xl border border-palazzo-gold/50 bg-palazzo-paper p-6 text-center shadow-2xl sm:p-8">
+          <div className={`mx-auto grid h-14 w-14 place-items-center rounded-full text-2xl ${submissionNotice.type === "success" ? "bg-emerald-100 text-emerald-800" : "bg-red-100 text-red-800"}`} aria-hidden="true">{submissionNotice.type === "success" ? "✓" : "!"}</div>
+          <h2 id="order-notice-title" className="mt-4 font-serif text-2xl text-palazzo-burgundy">{submissionNotice.title}</h2>
+          <p id="order-notice-message" className="mt-2 text-sm leading-6 text-stone-600">{submissionNotice.message}</p>
+          {submissionNotice.type === "success" ? <button type="button" autoFocus onClick={() => { setSubmissionNotice(null); onClose(); }} className="mt-6 min-h-12 w-full rounded-full bg-palazzo-burgundy px-5 text-sm font-semibold text-palazzo-cream hover:bg-[#5b1720]">Done</button> : <button type="button" autoFocus onClick={() => setSubmissionNotice(null)} className="mt-6 min-h-12 w-full rounded-full bg-palazzo-burgundy px-5 text-sm font-semibold text-palazzo-cream hover:bg-[#5b1720]">Back to my order</button>}
+        </section>
+      </div>}
     </>
   );
 }

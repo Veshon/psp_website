@@ -11,11 +11,13 @@ import drinks from "./data/drinks.js";
 import iceCream from "./data/iceCream.js";
 import desserts from "./data/desserts.js";
 import OrderList from "./components/OrderList.jsx";
+import StaffOrders from "./components/StaffOrders.jsx";
 
 const menus = { food, drinks, iceCream, desserts };
 
 export default function App() {
   const menuId = document.getElementById("root")?.dataset.menu || "food";
+  if (menuId === "staff") return <StaffOrders />;
   if (menuId === "hub") return <MenuHub />;
   const menu = menus[menuId] || food;
   const [query, setQuery] = useState("");

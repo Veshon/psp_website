@@ -20,7 +20,7 @@ export default function SiteHeader({ activePage }) {
             />
           </span>
           <span>
-            <span className="block font-serif text-[14px] leading-tight tracking-[.09em] sm:text-[19px] sm:tracking-[.11em]">BRASSERIE</span>
+            <span className=" flex justify-center font-serif text-[14px] leading-tight tracking-[.09em] sm:text-[19px] sm:tracking-[.11em]">BRASSERIE</span>
             <span className="mt-1 block text-[10px] tracking-[.18em] text-palazzo-gold-light sm:mt-1.5 sm:text-[9px] sm:tracking-[.24em]">PALAZZO SAN PAOLO</span>
           </span>
         </a>

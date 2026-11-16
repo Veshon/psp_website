@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { collection, onSnapshot, orderBy, query, updateDoc, doc } from "firebase/firestore";
 import { auth, db, firebaseConfigured } from "../firebase.js";
 
 const money = (amount) => new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" }).format(amount || 0);
-const completedStatuses = new Set(["served", "cancelled"]);
+const closedStatuses = new Set(["served", "paid", "cancelled"]);
 const receiptMenuOrder = (menu) => {
   const name = String(menu || "").toLowerCase();
   if (name.includes("drink")) return 0;
@@ -104,11 +104,10 @@ const buildReceiptPdf = async (order) => {
         const note = pdf.splitTextToSize(`Note: ${item.comment}`, contentWidth - 12);
         ensureSpace(note.length * 4.5 + 2);
         pdf.text(note, margin + 7, y);
-        y += note.length * 4.5;
+        y += note.length * 7;
       }
-      pdf.setDrawColor(190); pdf.setLineWidth(0.15); pdf.line(margin + 2, y + 1, right - 2, y + 1); y += 4;
+      // pdf.setDrawColor(190); pdf.setLineWidth(0.15); pdf.line(margin + 2, y + 1, right - 2, y + 1); y += 4;
     }
-    y += 2;
   }
 
   ensureSpace(25); rule();
@@ -116,7 +115,7 @@ const buildReceiptPdf = async (order) => {
   y += 5;
   pdf.text("TOTAL", margin, y); pdf.setFontSize(19); pdf.text(money(order.total), right, y, { align: "right" }); y += 11;
   pdf.setFont("helvetica", "normal"); pdf.setFontSize(10);
-  pdf.text("Payment:   [ ] Cash     [ ] Card", margin, y); y += 12;
+  pdf.text("Payment:   [ ] Cash     [ ] Card      [ ] Revolut", margin, y); y += 12;
   pdf.setFontSize(11); pdf.text("Thank you for dining with us!", pageWidth / 2, y, { align: "center" });
   return pdf.output("blob");
 };
@@ -124,6 +123,7 @@ const statusStyles = {
   new: "border-amber-300 bg-amber-50 text-amber-900",
   preparing: "border-blue-300 bg-blue-50 text-blue-900",
   served: "border-emerald-300 bg-emerald-50 text-emerald-900",
+  paid: "border-violet-300 bg-violet-50 text-violet-900",
   cancelled: "border-stone-300 bg-stone-100 text-stone-700",
 };
 
@@ -136,6 +136,24 @@ export default function StaffOrders() {
   const [connectionState, setConnectionState] = useState("offline");
   const [activeFilter, setActiveFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const audioContextRef = useRef(null);
+
+  useEffect(() => {
+    const unlockAudio = () => {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      audioContextRef.current ||= new AudioContextClass();
+      if (audioContextRef.current.state === "suspended") audioContextRef.current.resume().catch(() => {});
+    };
+    window.addEventListener("pointerdown", unlockAudio);
+    window.addEventListener("keydown", unlockAudio);
+    return () => {
+      window.removeEventListener("pointerdown", unlockAudio);
+      window.removeEventListener("keydown", unlockAudio);
+      audioContextRef.current?.close();
+      audioContextRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     if (!auth) return undefined;
@@ -145,8 +163,16 @@ export default function StaffOrders() {
   useEffect(() => {
     if (!user || !db) { setOrders([]); setConnectionState("offline"); return undefined; }
     setConnectionState("connecting");
+    let firstSnapshot = true;
     return onSnapshot(query(collection(db, "orders"), orderBy("createdAt", "desc")),
-      (snapshot) => { setOrders(snapshot.docs.map((item) => ({ id: item.id, ...item.data() }))); setError(""); setConnectionState("live"); },
+      (snapshot) => {
+        const isNewOrder = !firstSnapshot && snapshot.docChanges().some((change) => change.type === "added");
+        firstSnapshot = false;
+        setOrders(snapshot.docs.map((item) => ({ id: item.id, ...item.data() })));
+        setError("");
+        setConnectionState("live");
+        if (isNewOrder) playOrderAlert(audioContextRef.current);
+      },
       (reason) => { setError(reason.message || "Could not load orders."); setConnectionState("error"); },
     );
   }, [user]);
@@ -184,8 +210,10 @@ export default function StaffOrders() {
   if (!firebaseConfigured) return <Shell><h1 className="font-serif text-3xl">Staff orders</h1><p className="mt-3 text-sm">Firebase is not configured yet. Follow the setup steps in README.md.</p></Shell>;
   if (!user) return <Shell><h1 className="font-serif text-3xl">Staff orders</h1><p className="mt-2 text-sm text-stone-600">Sign in with a staff account to view incoming orders.</p><form onSubmit={login} className="mt-6 grid gap-3"><input required type="email" autoComplete="username" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Staff email" className="min-h-12 rounded-xl border px-4"/><input required type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password" className="min-h-12 rounded-xl border px-4"/><button className="min-h-12 rounded-xl bg-[#51131b] text-white">Sign in</button></form>{error && <p role="alert" className="mt-3 text-sm text-red-700">{error}</p>}</Shell>;
 
-  const activeOrders = orders.filter((order) => !completedStatuses.has(order.status || "new"));
-  const completedOrders = orders.filter((order) => completedStatuses.has(order.status));
+  const activeOrders = orders.filter((order) => !closedStatuses.has(order.status || "new"));
+  const servedOrders = orders.filter((order) => order.status === "served");
+  const paidOrders = orders.filter((order) => order.status === "paid");
+  const cancelledOrders = orders.filter((order) => order.status === "cancelled");
   const newCount = activeOrders.filter((order) => (order.status || "new") === "new").length;
   const visibleActiveOrders = activeOrders.filter((order) => {
     const statusMatches = activeFilter === "all" || (order.status || "new") === activeFilter;
@@ -221,27 +249,21 @@ export default function StaffOrders() {
           <>
             <section aria-labelledby="active-orders-title">
               <div className="staff-no-print mb-3 flex items-end justify-between gap-3">
-                <div><h2 id="active-orders-title" className="font-serif text-2xl">Active orders</h2><p className="text-xs text-stone-500">New and preparing</p></div>
+                <div><h2 id="active-orders-title" className="font-serif text-2xl">Active orders</h2></div>
                 {newCount > 0 && <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-900">{newCount} need{newCount === 1 ? "s" : ""} attention</span>}
               </div>
               <div className="staff-no-print mb-4 grid gap-3 rounded-2xl border border-[#c69b52]/35 bg-white p-3 sm:grid-cols-[1fr_auto] sm:items-center sm:p-4">
                 <label className="relative block"><span className="sr-only">Search active orders</span><span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" aria-hidden="true">⌕</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search table, dish, or note" className="min-h-11 w-full rounded-xl border border-stone-200 bg-[#fbfaf7] pl-9 pr-3 text-sm outline-none focus:border-[#8d632c] focus:ring-2 focus:ring-[#c69b52]/25" /></label>
                 <div className="flex gap-1 rounded-xl bg-[#f6f1e6] p-1" role="group" aria-label="Filter active orders">
-                  {[ ["all", `All (${activeOrders.length})`], ["new", `New (${newCount})`], ["preparing", `Preparing (${activeOrders.length - newCount})`] ].map(([value, label]) => <button key={value} type="button" aria-pressed={activeFilter === value} onClick={() => setActiveFilter(value)} className={`min-h-9 flex-1 rounded-lg px-3 text-xs font-semibold transition sm:flex-none ${activeFilter === value ? "bg-[#51131b] text-white shadow-sm" : "text-stone-600 hover:bg-white"}`}>{label}</button>)}
+                  {[ ["all", `All (${activeOrders.length})`], ["new", `New (${newCount})`], ["preparing", `Preparing (${activeOrders.length - newCount})`] ].map(([value, label]) => <button key={value} type="button" aria-pressed={activeFilter === value} onClick={() => setActiveFilter(value)} className={`min-h-9 flex-1 rounded-lg px-3 text-xs font-semibold transition sm:flex-none ${value === "new" && newCount > 1 ? "animate-pulse bg-red-600 text-white shadow-md shadow-red-900/20 hover:bg-red-700" : activeFilter === value ? "bg-[#51131b] text-white shadow-sm" : "text-stone-600 hover:bg-white"}`}>{label}</button>)}
                 </div>
               </div>
               {activeOrders.length === 0 ? <p className="staff-no-print rounded-xl border border-dashed border-[#c69b52]/50 bg-white/60 p-6 text-center text-sm text-stone-600">All caught up. There are no active orders.</p> : visibleActiveOrders.length === 0 ? <p className="staff-no-print rounded-xl border border-dashed border-[#c69b52]/50 bg-white/60 p-6 text-center text-sm text-stone-600">No orders match this filter. Try another status or search.</p> : <div className="grid items-start gap-4 lg:grid-cols-2">{visibleActiveOrders.map((order) => <OrderCard key={order.id} order={order} onPrint={() => printOrder(order)} onStatusChange={changeStatus} />)}</div>}
             </section>
 
-            <details className="staff-completed staff-no-print mt-8 overflow-hidden rounded-2xl border border-stone-300 bg-white/70">
-              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 hover:bg-white [&::-webkit-details-marker]:hidden">
-                <span><span className="font-serif text-xl">Completed orders</span><span className="ml-2 text-sm text-stone-500">Served and cancelled</span></span>
-                <span className="flex items-center gap-2"><span className="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-semibold text-stone-700">{completedOrders.length}</span><span className="text-lg text-stone-500" aria-hidden="true">⌄</span></span>
-              </summary>
-              <div className="border-t border-stone-200 p-4">
-                {completedOrders.length === 0 ? <p className="py-4 text-center text-sm text-stone-500">Completed orders will be kept here.</p> : <div className="grid items-start gap-4 lg:grid-cols-2">{completedOrders.map((order) => <OrderCard key={order.id} order={order} onPrint={() => printOrder(order)} onStatusChange={changeStatus} />)}</div>}
-              </div>
-            </details>
+            <OrderSection title="Served orders" count={servedOrders.length} hint="Waiting for payment" empty="Served orders will appear here." className="mt-8" orders={servedOrders} printOrder={printOrder} changeStatus={changeStatus} actionLabel="Mark as paid" actionStatus="paid" />
+            <OrderSection title="Paid orders" count={paidOrders.length} hint="Payment complete" empty="Paid orders will appear here." className="mt-4" orders={paidOrders} printOrder={printOrder} changeStatus={changeStatus} />
+            {cancelledOrders.length > 0 && <OrderSection title="Cancelled orders" count={cancelledOrders.length} empty="" className="mt-4" orders={cancelledOrders} printOrder={printOrder} changeStatus={changeStatus} />}
           </>
         )}
       </div>
@@ -249,7 +271,19 @@ export default function StaffOrders() {
   );
 }
 
-function OrderCard({ order, onPrint, onStatusChange }) {
+function OrderSection({ title, count, hint, empty, className = "", orders, printOrder, changeStatus, actionLabel, actionStatus }) {
+  return <details className={`staff-no-print overflow-hidden rounded-2xl border border-stone-300 bg-white/70 ${className}`}>
+    <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 hover:bg-white [&::-webkit-details-marker]:hidden">
+      <span><span className="font-serif text-xl">{title}</span>{hint && <span className="ml-2 text-sm text-stone-500">{hint}</span>}</span>
+      <span className="flex items-center gap-2"><span className="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-semibold text-stone-700">{count}</span><span className="text-lg text-stone-500" aria-hidden="true">⌄</span></span>
+    </summary>
+    <div className="border-t border-stone-200 p-4">
+      {orders.length === 0 ? <p className="py-4 text-center text-sm text-stone-500">{empty}</p> : <div className="grid items-start gap-4 lg:grid-cols-2">{orders.map((order) => <OrderCard key={order.id} order={order} onPrint={() => printOrder(order)} onStatusChange={changeStatus} actionLabel={actionLabel} actionStatus={actionStatus} />)}</div>}
+    </div>
+  </details>;
+}
+
+function OrderCard({ order, onPrint, onStatusChange, actionLabel, actionStatus }) {
   const status = order.status || "new";
   const created = order.createdAt?.toDate?.();
   const itemGroups = groupOrderItems(order.items || []);
@@ -261,8 +295,7 @@ function OrderCard({ order, onPrint, onStatusChange }) {
           <p className="mt-1 text-xs text-stone-500">{created ? created.toLocaleString("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }) : "Just received"}</p>
         </div>
         <div className="staff-no-print flex items-center gap-2">
-          <label className="sr-only" htmlFor={`status-${order.id}`}>Change status for table {order.tableNumber}</label>
-          <select id={`status-${order.id}`} value={status} onChange={(event) => onStatusChange(order, event.target.value)} className="min-h-10 rounded-full border border-stone-300 bg-white px-3 text-sm focus:border-[#8d632c] focus:outline-none focus:ring-2 focus:ring-[#c69b52]/30"><option value="new">New</option><option value="preparing">Preparing</option><option value="served">Served</option><option value="cancelled">Cancelled</option></select>
+          {status === "new" || status === "preparing" ? <><label className="sr-only" htmlFor={`status-${order.id}`}>Change status for table {order.tableNumber}</label><select id={`status-${order.id}`} value={status} onChange={(event) => onStatusChange(order, event.target.value)} className="min-h-10 rounded-full border border-stone-300 bg-white px-3 text-sm focus:border-[#8d632c] focus:outline-none focus:ring-2 focus:ring-[#c69b52]/30"><option value="new">New</option><option value="preparing">Preparing</option><option value="cancelled">Cancelled</option></select><button type="button" onClick={() => onStatusChange(order, "served")} className="min-h-10 rounded-full bg-emerald-700 px-3 text-sm font-semibold text-white hover:bg-emerald-800">Mark served</button></> : actionLabel && <button type="button" onClick={() => onStatusChange(order, actionStatus)} className="min-h-10 rounded-full bg-[#51131b] px-3 text-sm font-semibold text-white hover:bg-[#6b1b26]">{actionLabel}</button>}
           <button type="button" onClick={onPrint} className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[#8d632c]/40 px-3 text-sm font-medium text-[#51131b] hover:bg-[#fbf8f0]" aria-label={`Open B5 receipt PDF for table ${order.tableNumber}`}><span aria-hidden="true">⎙</span><span className="hidden sm:inline">Print</span></button>
         </div>
       </header>

@@ -206,7 +206,7 @@ export default function StaffOrders() {
 
         <div className="staff-no-print flex flex-wrap items-center justify-between gap-2 py-4 text-sm text-stone-600">
           <p>Signed in as <span className="font-medium text-[#261b17]">{user.email}</span></p>
-          <div className="flex items-center gap-4"><span className="inline-flex items-center gap-2" aria-live="polite"><span className={`h-2.5 w-2.5 rounded-full ${connectionState === "live" ? "bg-emerald-500" : connectionState === "error" ? "bg-red-500" : "bg-amber-400"}`} />{connectionState === "live" ? "Live updates on" : connectionState === "connecting" ? "Connecting…" : connectionState === "error" ? "Connection issue" : "Offline"}</span><p aria-live="polite"><strong className="text-[#51131b]">{activeOrders.length}</strong> active · <strong className="text-amber-800">{newCount}</strong> new</p></div>
+          <div className="flex items-center gap-4"><span className="inline-flex items-center gap-2" aria-live="polite"><span className={`h-2.5 w-2.5 rounded-full ${connectionState === "live" ? "bg-emerald-500" : connectionState === "error" ? "bg-red-500" : "bg-amber-400"}`} />{connectionState === "live" ? "Live updates on" : connectionState === "connecting" ? "Connecting…" : connectionState === "error" ? "Connection issue" : "Offline"}</span></div>
         </div>
 
         {error && <p role="alert" className="staff-no-print mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</p>}

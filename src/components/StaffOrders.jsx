@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { collection, onSnapshot, orderBy, query, updateDoc, doc } from "firebase/firestore";
+import { collection, deleteDoc, onSnapshot, orderBy, query, updateDoc, doc } from "firebase/firestore";
 import { auth, db, firebaseConfigured } from "../firebase.js";
 
 const money = (amount) => new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" }).format(amount || 0);
@@ -127,6 +127,60 @@ const statusStyles = {
   cancelled: "border-stone-300 bg-stone-100 text-stone-700",
 };
 
+function playOrderAlert(context) {
+  if (!context || context.state !== "running") return;
+  const start = context.currentTime;
+
+  // Lush Major 7th arpeggio
+  const notes = [
+    { freq: 523.25, time: 0.0, duration: 1.6 },  // C5
+    { freq: 659.25, time: 0.14, duration: 1.6 }, // E5
+    { freq: 783.99, time: 0.28, duration: 1.6 }, // G5
+    { freq: 987.77, time: 0.42, duration: 1.8 }  // B5
+  ];
+
+  notes.forEach(({ freq, time, duration }) => {
+    const noteStart = start + time;
+    const osc = context.createOscillator();
+    const overtone = context.createOscillator();
+    const gain = context.createGain();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq, noteStart);
+
+    overtone.type = "triangle";
+    overtone.frequency.setValueAtTime(freq * 2, noteStart);
+
+    const overtoneGain = context.createGain();
+    overtoneGain.gain.setValueAtTime(0.08, noteStart);
+    overtoneGain.gain.exponentialRampToValueAtTime(0.0001, noteStart + 0.15);
+
+    gain.gain.setValueAtTime(0.0001, noteStart);
+    gain.gain.exponentialRampToValueAtTime(0.2, noteStart + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + duration);
+
+    osc.connect(gain);
+    overtone.connect(overtoneGain);
+    overtoneGain.connect(gain);
+    gain.connect(context.destination);
+
+    osc.start(noteStart);
+    overtone.start(noteStart);
+    osc.stop(noteStart + duration + 0.02);
+    overtone.stop(noteStart + 0.2);
+  });
+}
+
+async function resumeAndPlayOrderAlert(context) {
+  if (!context) return;
+  try {
+    if (context.state === "suspended") await context.resume();
+    if (context.state === "running") playOrderAlert(context);
+  } catch {
+    // Audio can be blocked by the browser or device; keep the live order feed working.
+  }
+}
+
 export default function StaffOrders() {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -136,23 +190,44 @@ export default function StaffOrders() {
   const [connectionState, setConnectionState] = useState("offline");
   const [activeFilter, setActiveFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const audioContextRef = useRef(null);
+  const soundEnabledRef = useRef(false);
 
-  useEffect(() => {
-    const unlockAudio = () => {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
+  const enableNotificationSound = async () => {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) {
+      setError("This browser does not support order alert sounds.");
+      return;
+    }
+    try {
       audioContextRef.current ||= new AudioContextClass();
-      if (audioContextRef.current.state === "suspended") audioContextRef.current.resume().catch(() => {});
-    };
-    window.addEventListener("pointerdown", unlockAudio);
-    window.addEventListener("keydown", unlockAudio);
-    return () => {
-      window.removeEventListener("pointerdown", unlockAudio);
-      window.removeEventListener("keydown", unlockAudio);
-      audioContextRef.current?.close();
-      audioContextRef.current = null;
-    };
+      await audioContextRef.current.resume();
+      soundEnabledRef.current = true;
+      setSoundEnabled(true);
+      playOrderAlert(audioContextRef.current);
+    } catch {
+      setError("Could not enable alert sound. Check your browser sound settings and try again.");
+    }
+  };
+
+  const toggleNotificationSound = async () => {
+    if (soundEnabled && audioContextRef.current) {
+      try {
+        await audioContextRef.current.suspend();
+        soundEnabledRef.current = false;
+        setSoundEnabled(false);
+      } catch {
+        setError("Could not turn off alert sound. Please try again.");
+      }
+      return;
+    }
+    await enableNotificationSound();
+  };
+
+  useEffect(() => () => {
+    audioContextRef.current?.close();
+    audioContextRef.current = null;
   }, []);
 
   useEffect(() => {
@@ -163,15 +238,25 @@ export default function StaffOrders() {
   useEffect(() => {
     if (!user || !db) { setOrders([]); setConnectionState("offline"); return undefined; }
     setConnectionState("connecting");
-    let firstSnapshot = true;
+    const listenerStartedAt = Date.now();
+    let knownOrderIds = null;
     return onSnapshot(query(collection(db, "orders"), orderBy("createdAt", "desc")),
       (snapshot) => {
-        const isNewOrder = !firstSnapshot && snapshot.docChanges().some((change) => change.type === "added");
-        firstSnapshot = false;
+        const addedOrders = knownOrderIds === null
+          ? snapshot.docs.filter((item) => {
+              const order = item.data();
+              const createdAt = order.createdAt?.toMillis?.();
+              return (order.status || "new") === "new" && createdAt != null && createdAt >= listenerStartedAt - 120_000;
+            })
+          : snapshot.docChanges()
+              .filter((change) => change.type === "added" && !knownOrderIds.has(change.doc.id))
+              .filter((change) => (change.doc.data().status || "new") === "new");
+        const hasIncomingNewOrder = addedOrders.length > 0;
+        knownOrderIds = new Set(snapshot.docs.map((item) => item.id));
         setOrders(snapshot.docs.map((item) => ({ id: item.id, ...item.data() })));
         setError("");
         setConnectionState("live");
-        if (isNewOrder) playOrderAlert(audioContextRef.current);
+        if (hasIncomingNewOrder && soundEnabledRef.current) resumeAndPlayOrderAlert(audioContextRef.current);
       },
       (reason) => { setError(reason.message || "Could not load orders."); setConnectionState("error"); },
     );
@@ -186,6 +271,12 @@ export default function StaffOrders() {
   const changeStatus = (order, status) => {
     updateDoc(doc(db, "orders", order.id), { status })
       .catch((reason) => setError(reason.message || "Could not update order status."));
+  };
+
+  const deleteOrder = (order) => {
+    if (!window.confirm(`Permanently delete the cancelled order for Table ${order.tableNumber}?`)) return;
+    deleteDoc(doc(db, "orders", order.id))
+      .catch((reason) => setError(reason.message || "Could not delete the order."));
   };
 
   const printOrder = async (order) => {
@@ -234,7 +325,15 @@ export default function StaffOrders() {
 
         <div className="staff-no-print flex flex-wrap items-center justify-between gap-2 py-4 text-sm text-stone-600">
           <p>Signed in as <span className="font-medium text-[#261b17]">{user.email}</span></p>
-          <div className="flex items-center gap-4"><span className="inline-flex items-center gap-2" aria-live="polite"><span className={`h-2.5 w-2.5 rounded-full ${connectionState === "live" ? "bg-emerald-500" : connectionState === "error" ? "bg-red-500" : "bg-amber-400"}`} />{connectionState === "live" ? "Live updates on" : connectionState === "connecting" ? "Connecting…" : connectionState === "error" ? "Connection issue" : "Offline"}</span></div>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-2" aria-live="polite"><span className={`h-2.5 w-2.5 rounded-full ${connectionState === "live" ? "bg-emerald-500" : connectionState === "error" ? "bg-red-500" : "bg-amber-400"}`} />{connectionState === "live" ? "Live updates on" : connectionState === "connecting" ? "Connecting…" : connectionState === "error" ? "Connection issue" : "Offline"}</span>
+            <button type="button" onClick={toggleNotificationSound} aria-label={soundEnabled ? "Turn notification sound off" : "Enable notification sound"} aria-pressed={soundEnabled} title={soundEnabled ? "Notification sound on" : "Enable notification sound"} className={`grid h-9 w-9 place-items-center rounded-full border transition ${soundEnabled ? "border-emerald-300 bg-emerald-50 text-emerald-800" : "border-stone-300 bg-white text-stone-600 hover:bg-[#fbf8f0]"}`}>
+              <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+                {soundEnabled ? <><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M18.5 5.5a9 9 0 0 1 0 13" /></> : <path d="m16 9 5 6m0-6-5 6" />}
+              </svg>
+            </button>
+          </div>
         </div>
 
         {error && <p role="alert" className="staff-no-print mb-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</p>}
@@ -254,8 +353,10 @@ export default function StaffOrders() {
               </div>
               <div className="staff-no-print mb-4 grid gap-3 rounded-2xl border border-[#c69b52]/35 bg-white p-3 sm:grid-cols-[1fr_auto] sm:items-center sm:p-4">
                 <label className="relative block"><span className="sr-only">Search active orders</span><span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" aria-hidden="true">⌕</span><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search table, dish, or note" className="min-h-11 w-full rounded-xl border border-stone-200 bg-[#fbfaf7] pl-9 pr-3 text-sm outline-none focus:border-[#8d632c] focus:ring-2 focus:ring-[#c69b52]/25" /></label>
-                <div className="flex gap-1 rounded-xl bg-[#f6f1e6] p-1" role="group" aria-label="Filter active orders">
-                  {[ ["all", `All (${activeOrders.length})`], ["new", `New (${newCount})`], ["preparing", `Preparing (${activeOrders.length - newCount})`] ].map(([value, label]) => <button key={value} type="button" aria-pressed={activeFilter === value} onClick={() => setActiveFilter(value)} className={`min-h-9 flex-1 rounded-lg px-3 text-xs font-semibold transition sm:flex-none ${value === "new" && newCount > 1 ? "animate-pulse bg-red-600 text-white shadow-md shadow-red-900/20 hover:bg-red-700" : activeFilter === value ? "bg-[#51131b] text-white shadow-sm" : "text-stone-600 hover:bg-white"}`}>{label}</button>)}
+                <div className="flex flex-wrap items-center gap-2 sm:justify-end">
+                  <div className="flex gap-1 rounded-xl bg-[#f6f1e6] p-1" role="group" aria-label="Filter active orders">
+                    {[ ["all", `All (${activeOrders.length})`], ["new", `New (${newCount})`], ["preparing", `Preparing (${activeOrders.length - newCount})`] ].map(([value, label]) => <button key={value} type="button" aria-pressed={activeFilter === value} onClick={() => setActiveFilter(value)} className={`min-h-9 flex-1 rounded-lg px-3 text-xs font-semibold transition sm:flex-none ${value === "new" && newCount > 0 ? "staff-new-order-alert bg-red-700 text-white" : activeFilter === value ? "bg-[#51131b] text-white shadow-sm" : "text-stone-600 hover:bg-white"}`}>{label}</button>)}
+                  </div>
                 </div>
               </div>
               {activeOrders.length === 0 ? <p className="staff-no-print rounded-xl border border-dashed border-[#c69b52]/50 bg-white/60 p-6 text-center text-sm text-stone-600">All caught up. There are no active orders.</p> : visibleActiveOrders.length === 0 ? <p className="staff-no-print rounded-xl border border-dashed border-[#c69b52]/50 bg-white/60 p-6 text-center text-sm text-stone-600">No orders match this filter. Try another status or search.</p> : <div className="grid items-start gap-4 lg:grid-cols-2">{visibleActiveOrders.map((order) => <OrderCard key={order.id} order={order} onPrint={() => printOrder(order)} onStatusChange={changeStatus} />)}</div>}
@@ -263,7 +364,7 @@ export default function StaffOrders() {
 
             <OrderSection title="Served orders" count={servedOrders.length} hint="Waiting for payment" empty="Served orders will appear here." className="mt-8" orders={servedOrders} printOrder={printOrder} changeStatus={changeStatus} actionLabel="Mark as paid" actionStatus="paid" />
             <OrderSection title="Paid orders" count={paidOrders.length} hint="Payment complete" empty="Paid orders will appear here." className="mt-4" orders={paidOrders} printOrder={printOrder} changeStatus={changeStatus} />
-            {cancelledOrders.length > 0 && <OrderSection title="Cancelled orders" count={cancelledOrders.length} empty="" className="mt-4" orders={cancelledOrders} printOrder={printOrder} changeStatus={changeStatus} />}
+            {cancelledOrders.length > 0 && <OrderSection title="Cancelled orders" count={cancelledOrders.length} empty="" className="mt-4" orders={cancelledOrders} printOrder={printOrder} changeStatus={changeStatus} deleteOrder={deleteOrder} />}
           </>
         )}
       </div>
@@ -271,19 +372,19 @@ export default function StaffOrders() {
   );
 }
 
-function OrderSection({ title, count, hint, empty, className = "", orders, printOrder, changeStatus, actionLabel, actionStatus }) {
+function OrderSection({ title, count, hint, empty, className = "", orders, printOrder, changeStatus, actionLabel, actionStatus, deleteOrder }) {
   return <details className={`staff-no-print overflow-hidden rounded-2xl border border-stone-300 bg-white/70 ${className}`}>
     <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 hover:bg-white [&::-webkit-details-marker]:hidden">
       <span><span className="font-serif text-xl">{title}</span>{hint && <span className="ml-2 text-sm text-stone-500">{hint}</span>}</span>
       <span className="flex items-center gap-2"><span className="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-semibold text-stone-700">{count}</span><span className="text-lg text-stone-500" aria-hidden="true">⌄</span></span>
     </summary>
     <div className="border-t border-stone-200 p-4">
-      {orders.length === 0 ? <p className="py-4 text-center text-sm text-stone-500">{empty}</p> : <div className="grid items-start gap-4 lg:grid-cols-2">{orders.map((order) => <OrderCard key={order.id} order={order} onPrint={() => printOrder(order)} onStatusChange={changeStatus} actionLabel={actionLabel} actionStatus={actionStatus} />)}</div>}
+      {orders.length === 0 ? <p className="py-4 text-center text-sm text-stone-500">{empty}</p> : <div className="grid items-start gap-4 lg:grid-cols-2">{orders.map((order) => <OrderCard key={order.id} order={order} onPrint={() => printOrder(order)} onStatusChange={changeStatus} actionLabel={actionLabel} actionStatus={actionStatus} onDelete={deleteOrder ? () => deleteOrder(order) : undefined} />)}</div>}
     </div>
   </details>;
 }
 
-function OrderCard({ order, onPrint, onStatusChange, actionLabel, actionStatus }) {
+function OrderCard({ order, onPrint, onStatusChange, actionLabel, actionStatus, onDelete }) {
   const status = order.status || "new";
   const created = order.createdAt?.toDate?.();
   const itemGroups = groupOrderItems(order.items || []);
@@ -295,11 +396,16 @@ function OrderCard({ order, onPrint, onStatusChange, actionLabel, actionStatus }
           <p className="mt-1 text-xs text-stone-500">{created ? created.toLocaleString("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }) : "Just received"}</p>
         </div>
         <div className="staff-no-print flex items-center gap-2">
-          {status === "new" || status === "preparing" ? <><label className="sr-only" htmlFor={`status-${order.id}`}>Change status for table {order.tableNumber}</label><select id={`status-${order.id}`} value={status} onChange={(event) => onStatusChange(order, event.target.value)} className="min-h-10 rounded-full border border-stone-300 bg-white px-3 text-sm focus:border-[#8d632c] focus:outline-none focus:ring-2 focus:ring-[#c69b52]/30"><option value="new">New</option><option value="preparing">Preparing</option><option value="cancelled">Cancelled</option></select><button type="button" onClick={() => onStatusChange(order, "served")} className="min-h-10 rounded-full bg-emerald-700 px-3 text-sm font-semibold text-white hover:bg-emerald-800">Mark served</button></> : actionLabel && <button type="button" onClick={() => onStatusChange(order, actionStatus)} className="min-h-10 rounded-full bg-[#51131b] px-3 text-sm font-semibold text-white hover:bg-[#6b1b26]">{actionLabel}</button>}
-          <button type="button" onClick={onPrint} className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[#8d632c]/40 px-3 text-sm font-medium text-[#51131b] hover:bg-[#fbf8f0]" aria-label={`Open B5 receipt PDF for table ${order.tableNumber}`}><span aria-hidden="true">⎙</span><span className="hidden sm:inline">Print</span></button>
+          <label className="sr-only" htmlFor={`status-${order.id}`}>Change status for table {order.tableNumber}</label>
+          <select id={`status-${order.id}`} value={status} onChange={(event) => onStatusChange(order, event.target.value)} className="min-h-10 rounded-full border border-stone-300 bg-white px-3 text-sm focus:border-[#8d632c] focus:outline-none focus:ring-2 focus:ring-[#c69b52]/30"><option value="new">New</option><option value="preparing">Preparing</option><option value="served">Served</option><option value="paid">Paid</option><option value="cancelled">Cancelled</option></select>
+          {/* {(status === "new" || status === "preparing") && <button type="button" onClick={() => onStatusChange(order, "served")} className="min-h-10 rounded-full bg-emerald-700 px-3 text-sm font-semibold text-white hover:bg-emerald-800">Mark served</button>} */}
+          {actionLabel && status === "served" && <button type="button" onClick={() => onStatusChange(order, actionStatus)} className="min-h-10 rounded-full bg-[#51131b] px-3 text-sm font-semibold text-white hover:bg-[#6b1b26]">{actionLabel}</button>}
+          {onDelete && <button type="button" onClick={onDelete} className="min-h-10 rounded-full border border-red-300 px-3 text-sm font-semibold text-red-700 hover:bg-red-50">Delete</button>}
+          <button type="button" onClick={onPrint} className="inline-flex min-h-10 items-center gap-1.5 rounded-full border border-[#8d632c]/40 px-3 text-sm font-medium text-[#51131b] hover:bg-[#fbf8f0]" aria-label={`Open B5 receipt PDF for table ${order.tableNumber}`}><span aria-hidden="true">🖨️</span><span className="hidden sm:inline">Print</span></button>
         </div>
       </header>
-      <div className="divide-y divide-stone-100">{itemGroups.map((group) => <section key={group.menu} className="py-2" aria-label={group.label}><h4 className="pb-1 text-xs font-semibold uppercase tracking-[.12em] text-[#8d632c]">{group.label}</h4><ul className="divide-y divide-stone-100">{group.items.map((item, index) => <li key={`${item.name}-${item.originalIndex ?? index}`} className="py-3"><div className="flex justify-between gap-3 text-sm"><span className="min-w-0"><strong className="mr-1 tabular-nums">{item.quantity} ×</strong>{item.name}</span><span className="shrink-0 text-right">{item.lineTotal == null ? item.price : money(item.lineTotal)}</span></div>{item.comment && <p className="mt-1 pl-6 text-xs text-stone-600"><strong>Note:</strong> {item.comment}</p>}</li>)}</ul></section>)}</div>
+      <div>{itemGroups.map((group) => <section key={group.menu} className="pb-2" aria-label={group.label}><h4 className="pb-1 text-xs font-semibold uppercase tracking-[.12em] text-[#8d632c]">{group.label}</h4><ul>{group.items.map((item, index) => <li key={`${item.name}-${item.originalIndex ?? index}`} className="py-1"><div className="flex justify-between gap-3 text-sm"><span className="min-w-0"><strong className="mr-1 tabular-nums">{item.quantity} ×</strong>{item.name}</span><span className="shrink-0 text-right">{item.lineTotal == null ? item.price : money(item.lineTotal)}</span></div>{item.comment && <p className="mt-1 pl-6 text-xs text-stone-600"><strong>Note:</strong> {item.comment}</p>}</li>)}</ul></section>)}</div>
+      {/* className="divide-y divide-stone-100" */}
       <footer className="flex items-center justify-between border-t border-stone-200 pt-3 text-sm"><span className="text-xs text-stone-500">{order.items?.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0) || 0} item(s)</span><span className="font-semibold">Total <span className="ml-1 text-base">{money(order.total)}</span></span></footer>
     </article>
   );

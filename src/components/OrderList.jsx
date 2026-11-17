@@ -54,6 +54,7 @@ export default function OrderList({
   );
   const [sending, setSending] = useState(false);
   const [submissionNotice, setSubmissionNotice] = useState(null);
+  const [sentNotice, setSentNotice] = useState(null);
   const items = Object.values(order);
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
   const total = items.reduce(
@@ -73,6 +74,19 @@ export default function OrderList({
     };
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (!sentNotice) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setSentNotice(null);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      document.body.style.overflow = "";
+    };
+  }, [sentNotice]);
+
   const sendOrder = async (event) => {
     event.preventDefault();
     if (!firebaseConfigured || !db) {
@@ -81,7 +95,7 @@ export default function OrderList({
     }
     setSending(true); setSubmissionNotice(null);
     try {
-      await addDoc(collection(db, "orders"), {
+      const orderRecord = await addDoc(collection(db, "orders"), {
         tableNumber: tableNumber.trim(),
         items: items.map((item) => ({
           name: item.name, menu: item.menu, section: item.section,
@@ -94,7 +108,8 @@ export default function OrderList({
         createdAt: serverTimestamp(),
       });
       onClear();
-      setSubmissionNotice({ type: "success", title: "Order sent", message: `Your order for table ${tableNumber.trim()} has been sent to the staff team.` });
+      onClose();
+      setSentNotice({ tableNumber: tableNumber.trim(), reference: orderRecord.id.slice(-6).toUpperCase() });
     } catch (error) {
       setSubmissionNotice({
         type: "error",
@@ -259,7 +274,7 @@ export default function OrderList({
                     >
                       Clear list
                     </button>
-                    <p className="text-right text-[10px] leading-4 text-stone-500">Your order will appear on the staff order screen.</p>
+                    {/* <p className="text-right text-[10px] leading-4 text-stone-500">Your order will appear on the staff order screen.</p> */}
                   </div>
                 </footer>
               </>
@@ -286,12 +301,28 @@ export default function OrderList({
           </section>
         </div>
       )}
+      {sentNotice && <div className="fixed inset-0 z-[70] grid place-items-center bg-black/70 p-4 backdrop-blur-sm" onMouseDown={(event) => { if (event.target === event.currentTarget) setSentNotice(null); }}>
+        <section role="dialog" aria-modal="true" aria-labelledby="order-success-title" aria-describedby="order-success-message" className="relative w-full max-w-lg overflow-hidden rounded-[28px] border border-palazzo-gold/60 bg-palazzo-paper text-center shadow-2xl">
+          <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-emerald-700 via-palazzo-gold to-emerald-700" />
+          <div className="px-7 pb-8 pt-10 sm:px-12 sm:pb-10 sm:pt-12">
+            <div className="mx-auto grid h-20 w-20 place-items-center rounded-full border-4 border-emerald-100 bg-emerald-700 text-4xl text-white shadow-lg shadow-emerald-900/15" aria-hidden="true">✓</div>
+            <p className="mt-6 text-xs font-bold uppercase tracking-[.2em] text-emerald-800">Order received</p>
+            <h2 id="order-success-title" className="mt-2 font-serif text-3xl text-palazzo-burgundy sm:text-4xl">Thank you!</h2>
+            <p id="order-success-message" className="mx-auto mt-3 max-w-sm text-sm leading-6 text-stone-600">Your order has been sent to our team. We’ll get it started shortly.</p>
+            {/* <div className="mx-auto mt-7 grid max-w-sm grid-cols-2 overflow-hidden rounded-2xl border border-palazzo-line bg-white text-left">
+              <div className="border-r border-palazzo-line px-4 py-4"><p className="text-[10px] font-bold uppercase tracking-[.14em] text-stone-500">Table</p><p className="mt-1 font-serif text-xl text-palazzo-burgundy">{sentNotice.tableNumber}</p></div>
+              <div className="px-4 py-4"><p className="text-[10px] font-bold uppercase tracking-[.14em] text-stone-500">Order reference</p><p className="mt-1 font-mono text-xl font-semibold text-palazzo-burgundy">#{sentNotice.reference}</p></div>
+            </div> */}
+            <button type="button" autoFocus onClick={() => setSentNotice(null)} className="mt-8 min-h-12 w-full max-w-sm rounded-full bg-palazzo-burgundy px-6 text-sm font-semibold text-palazzo-cream shadow-sm transition hover:bg-[#5b1720]">Continue browsing</button>
+          </div>
+        </section>
+      </div>}
       {submissionNotice && <div className="fixed inset-0 z-[70] grid place-items-center bg-black/70 p-4">
         <section role={submissionNotice.type === "error" ? "alertdialog" : "dialog"} aria-modal="true" aria-labelledby="order-notice-title" aria-describedby="order-notice-message" className="w-full max-w-sm rounded-3xl border border-palazzo-gold/50 bg-palazzo-paper p-6 text-center shadow-2xl sm:p-8">
-          <div className={`mx-auto grid h-14 w-14 place-items-center rounded-full text-2xl ${submissionNotice.type === "success" ? "bg-emerald-100 text-emerald-800" : "bg-red-100 text-red-800"}`} aria-hidden="true">{submissionNotice.type === "success" ? "✓" : "!"}</div>
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-red-100 text-2xl text-red-800" aria-hidden="true">!</div>
           <h2 id="order-notice-title" className="mt-4 font-serif text-2xl text-palazzo-burgundy">{submissionNotice.title}</h2>
           <p id="order-notice-message" className="mt-2 text-sm leading-6 text-stone-600">{submissionNotice.message}</p>
-          {submissionNotice.type === "success" ? <button type="button" autoFocus onClick={() => { setSubmissionNotice(null); onClose(); }} className="mt-6 min-h-12 w-full rounded-full bg-palazzo-burgundy px-5 text-sm font-semibold text-palazzo-cream hover:bg-[#5b1720]">Done</button> : <button type="button" autoFocus onClick={() => setSubmissionNotice(null)} className="mt-6 min-h-12 w-full rounded-full bg-palazzo-burgundy px-5 text-sm font-semibold text-palazzo-cream hover:bg-[#5b1720]">Back to my order</button>}
+          <button type="button" autoFocus onClick={() => setSubmissionNotice(null)} className="mt-6 min-h-12 w-full rounded-full bg-palazzo-burgundy px-5 text-sm font-semibold text-palazzo-cream hover:bg-[#5b1720]">Back to my order</button>
         </section>
       </div>}
     </>

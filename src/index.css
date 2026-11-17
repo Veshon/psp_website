@@ -87,7 +87,23 @@ a { -webkit-tap-highlight-color: transparent; }
 .menu-category-nav { scrollbar-width: none; }
 .menu-category-nav::-webkit-scrollbar { display: none; }
 
+.staff-new-order-alert {
+  animation: staff-new-order-flash 850ms ease-in-out infinite;
+}
+
+@keyframes staff-new-order-flash {
+  0%, 100% {
+    background-color: #b91c1c;
+    box-shadow: 0 0 0 0 rgba(185, 28, 28, .35);
+  }
+  50% {
+    background-color: #ef4444;
+    box-shadow: 0 0 0 5px rgba(185, 28, 28, .22);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
+  .staff-new-order-alert { animation-duration: 1.8s; }
 }

@@ -122,9 +122,17 @@ const foodMenu = {
         {
           "name": "Burger Maison + Belgian Fries",
           "price": "€14",
+          "description": "Beef/chicken patty, fried egg, cheese, lettuce & tomato",
           "image": "../assets/burgerMaison.png",
           "alt": "House burger and fries",
           "search": "burger maison belgian fries chicken beef"
+        },
+        {
+          "name": "Chilli Burger + Belgian Fries",
+          "price": "€12",
+          "description": "Beef, chilli con carne, cheese, crispy onion, raw onion, lettuce, mayo and hot sauce",
+          "alt": "Chilli Burger with fries",
+          "search": "Chilli burger belgian fries"
         },
         {
           "name": "Hot Dog + Belgian Fries",
@@ -218,7 +226,7 @@ const foodMenu = {
           "price": "€8",
           "detail": "Chicken or beef",
           "search": "burger belgian fries chicken beef",
-          "image": "",
+          "image": "../../assets/burger.png",
           "alt": "Sample burger with Belgian fries"
         },
         {

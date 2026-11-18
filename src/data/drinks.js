@@ -50,14 +50,20 @@ const drinksMenu = {
           "alt": "Sample soft drink"
         },
         {
-          "name": "Still Water",
-          "price": "€2",
+          "name": "Still Water 50cl",
+          "price": "€2.5",
           "image": "",
           "alt": "Sample soft drink"
         },
         {
-          "name": "Sparkling Water",
-          "price": "€2",
+          "name": "Sparkling Water 50cl",
+          "price": "€2.5",
+          "image": "",
+          "alt": "Sample soft drink"
+        },
+        {
+          "name": "Perrier 20cl",
+          "price": "€3",
           "image": "",
           "alt": "Sample soft drink"
         },
@@ -260,7 +266,6 @@ const drinksMenu = {
           "image": "",
           "alt": "Sample digestif"
         },
-        ,
         {
           "name": "Hugo Spritz",
           "price": "€7.50",

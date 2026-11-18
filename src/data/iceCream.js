@@ -39,7 +39,7 @@ const iceCreamMenu = {
           "alt": "Coconut fruit smoothie"
         },
         {
-          "name": "Berry Heaven",
+          "name": "Berry Heaven - OUT OF STOCK",
           "price": "€5.50",
           "detail": "Strawberry · Raspberry · Blackberry",
           "image": "",

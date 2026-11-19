@@ -129,7 +129,7 @@ const foodMenu = {
         },
         {
           "name": "Chilli Burger + Belgian Fries",
-          "price": "€12",
+          "price": "€15",
           "description": "Beef, chilli con carne, cheese, crispy onion, raw onion, lettuce, mayo and hot sauce",
           "alt": "Chilli Burger with fries",
           "search": "Chilli burger belgian fries"

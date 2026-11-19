@@ -215,17 +215,17 @@ const foodMenu = {
           "alt": "Sample chicken nuggets and fries"
         },
         {
-          "name": "Spaghetti Pomodoro",
+          "name": "Spaghetti Pomodoro (Kids Portion)",
           "price": "€6",
-          "search": "spaghetti pomodoro",
+          "search": "spaghetti pomodoro kids portion",
           "image": "../assets/spaghettiPomodoro.png",
           "alt": "Sample spaghetti pomodoro"
         },
         {
-          "name": "Burger + Belgian Fries",
+          "name": "Burger + Belgian Fries (Kids Portion)",
           "price": "€8",
           "detail": "Chicken or beef",
-          "search": "burger belgian fries chicken beef",
+          "search": "burger belgian fries chicken beef kids portion",
           "image": "../../assets/burger.png",
           "alt": "Sample burger with Belgian fries"
         },
